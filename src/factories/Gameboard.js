@@ -151,3 +151,5 @@ class GameBoard {
         return true;
     }
 }
+
+export default GameBoard;
