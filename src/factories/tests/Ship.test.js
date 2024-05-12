@@ -11,12 +11,12 @@ describe('Ship', () => {
         expect(ship).toEqual({ length: 5, hits: [] });
     })
 
-    test('', () => {
+    test('is ship getting hit', () => {
         ship.hit(1);
         expect(ship.hits).toContain(1);
     })
 
-    test('', () => {
+    test('is ship getting hit multiply times', () => {
         ship.hit(0);
         ship.hit(1);
         ship.hit(2);
@@ -24,7 +24,7 @@ describe('Ship', () => {
         expect(ship.hits).toEqual(expect.arrayContaining([0, 1, 2, 3]));
     })
 
-    test('', () => {
+    test('is ship sinking', () => {
         ship.hit(0);
         ship.hit(1);
         ship.hit(2);
