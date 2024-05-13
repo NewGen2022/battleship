@@ -6,11 +6,11 @@ class GameBoard {
     constructor () {
         this.board = [];
         this.missedShots = [];
-        this.init();
+        this.#init();
     }
 
     // initialize board
-    init () {
+    #init () {
         for (let i = 0; i < this.#SIZE; i++) {
             this.board[i] = [];
             this.missedShots[i] = [];
@@ -44,9 +44,9 @@ class GameBoard {
 
         // ship doesn't fit in gameBoard
         if (isHorizontal) {
-            if (column + ship.length > SIZE) return false
+            if (column + ship.length > this.#SIZE) return false
         } else {
-            if (row + ship.length > SIZE) return false
+            if (row + ship.length > this.#SIZE) return false
         }
     
         // any of the fields is already taken
@@ -67,9 +67,9 @@ class GameBoard {
                     for (let y = -1; y <= 1; y++) {
                         if (
                             row + x < 0 ||
-                            row + x >= SIZE ||
+                            row + x >= this.#SIZE ||
                             column + y + i < 0 ||
-                            column + y + i >= SIZE
+                            column + y + i >= this.#SIZE
                         )
                             continue
                         if (this.board[row + x][column + y + i]) return false
@@ -82,9 +82,9 @@ class GameBoard {
                     for (let y = -1; y <= 1; y++) {
                         if (
                             row + x + i < 0 ||
-                            row + x + i >= SIZE ||
+                            row + x + i >= this.#SIZE ||
                             column + y < 0 ||
-                            column + y >= SIZE
+                            column + y >= this.#SIZE
                         )
                         continue
                         if (this.board[row + x + i][column + y]) return false
@@ -97,7 +97,7 @@ class GameBoard {
 
     // checks if move is inside the board
     #isMoveValid (row, column) {
-        if (row < 0 || row >= SIZE || column < 0 || column >= SIZE) {
+        if (row < 0 || row >= this.#SIZE || column < 0 || column >= this.#SIZE) {
             return false
         }
 
@@ -111,32 +111,32 @@ class GameBoard {
     receiveAttack (row, column) {
         this.#isMoveValid(row, column);
 
-        if (this.board[row, column]) {
-            let hitIndex = 0
+        const ship = this.board[row][column];
+        if (ship) {
+            let hitIndex = 0;
             // is vertical
             if (column > 0 && this.board[row][column - 1]) {
-                let i = 1
+                let i = 1;
                 while (column - i >= 0 && this.board[row][column - i]) {
-                    hitIndex++
-                    i++
+                    hitIndex++;
+                    i++;
                 }
             }
             // is horizontal
             else if (row > 0 && this.board[row - 1][column]) {
-                let i = 1
+                let i = 1;
                 while (row - i >= 0 && this.board[row - i][column]) {
-                    hitIndex++
-                    i++
+                    hitIndex++;
+                    i++;
                 }
             }
-            this.board[row][column].hit(hitIndex)
-            return true
+            ship.hit(hitIndex);
+            return true;
         } else {
             this.missedShots[row][column] = true;
             return false;
         }
     }
-
 
     isGameOver () {
         // Iterate through the board
