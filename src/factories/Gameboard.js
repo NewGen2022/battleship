@@ -38,6 +38,26 @@ class GameBoard {
         return true;
     }
 
+    // places ship randomly on the board
+    placeShipRandomly() {
+        const shipLengths = [5, 4, 3, 3, 2]; // Lengths of the ships
+        // const shipTypes = ["Carrier", "Battleship", "Destroyer", "Submarine", "Patrol Boat"]; // Names of the ships
+    
+        for (let i = 0; i < shipLengths.length; i++) {
+            let row, column, isHorizontal;
+    
+            do {
+                row = Math.floor(Math.random() * 10);
+                column = Math.floor(Math.random() * 10);
+                isHorizontal = Math.random() < 0.5;
+            } while (!this.placeShip(new Ship(shipLengths[i]), row, column, isHorizontal));
+    
+            // console.log(`${shipTypes[i]} placed at row ${row}, column ${column}, ${isHorizontal ? 'horizontal' : 'vertical'}`);
+        }
+    
+        return true;
+    }
+
     // checks if player's move is valid
     #isPlacementValid (ship, row, column, isHorizontal) {
         this.#isMoveValid(row, column);

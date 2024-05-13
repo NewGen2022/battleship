@@ -41,6 +41,24 @@ describe('GameBoard', () => {
         });
     })
 
+    test('places ships randomly', () => {
+        board.placeShipRandomly();
+
+        const SIZE = 10; // size of the board
+        let countShips = 0; // count number of all ships on the board
+    
+        for (let row = 0; row < SIZE; row++) {
+            for (let column = 0; column < SIZE; column++) {
+                if (board.board[row][column] instanceof Ship) {
+                    countShips++;
+                }
+            }
+        }
+    
+        expect(countShips).toEqual(17); // 17 is the number of all ships cells (5+4+3+3+2)
+    });
+    
+
     test('prevents ship placement in neighborhood of taken fields', () => {
         board.placeShip(ship, 3, 3);
         expect(board.placeShip(ship, 4, 4)).toBe(false);
