@@ -50,6 +50,7 @@ module.exports = {
             title: 'BattleShip',
             filename: 'index.html',
             template: './src/template.html',
+            favicon: "./src/assets/cruise.png",
         }),
     ]
 }
