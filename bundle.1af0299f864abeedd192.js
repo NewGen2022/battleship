@@ -10,23 +10,23 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./src/index.js":
-/*!**********************!*\
-  !*** ./src/index.js ***!
-  \**********************/
+/***/ "./src/appearance/startScreen.js":
+/*!***************************************!*\
+  !*** ./src/appearance/startScreen.js ***!
+  \***************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _test__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./test */ \"./src/test.js\");\n/* harmony import */ var _styles_main_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./styles/main.css */ \"./src/styles/main.css\");\n\n\n(0,_test__WEBPACK_IMPORTED_MODULE_0__[\"default\"])();\n\n//# sourceURL=webpack://battleship/./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var _assets_cruise_png__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../assets/cruise.png */ \"./src/assets/cruise.png\");\n/* harmony import */ var _assets_sword_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../assets/sword.png */ \"./src/assets/sword.png\");\nfunction _typeof(o) { \"@babel/helpers - typeof\"; return _typeof = \"function\" == typeof Symbol && \"symbol\" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && \"function\" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? \"symbol\" : typeof o; }, _typeof(o); }\nfunction _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError(\"Cannot call a class as a function\"); } }\nfunction _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if (\"value\" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }\nfunction _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, \"prototype\", { writable: false }); return Constructor; }\nfunction _toPropertyKey(t) { var i = _toPrimitive(t, \"string\"); return \"symbol\" == _typeof(i) ? i : i + \"\"; }\nfunction _toPrimitive(t, r) { if (\"object\" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || \"default\"); if (\"object\" != _typeof(i)) return i; throw new TypeError(\"@@toPrimitive must return a primitive value.\"); } return (\"string\" === r ? String : Number)(t); }\nfunction _classPrivateMethodInitSpec(obj, privateSet) { _checkPrivateRedeclaration(obj, privateSet); privateSet.add(obj); }\nfunction _checkPrivateRedeclaration(obj, privateCollection) { if (privateCollection.has(obj)) { throw new TypeError(\"Cannot initialize the same private elements twice on an object\"); } }\nfunction _assertClassBrand(e, t, n) { if (\"function\" == typeof e ? e === t : e.has(t)) return arguments.length < 3 ? t : n; throw new TypeError(\"Private element is not present on this object\"); }\n\n\nvar _StartScreen_brand = /*#__PURE__*/new WeakSet();\nvar StartScreen = /*#__PURE__*/function () {\n  function StartScreen() {\n    _classCallCheck(this, StartScreen);\n    _classPrivateMethodInitSpec(this, _StartScreen_brand);\n    var body = document.querySelector(\"body\");\n    this.startMain = document.createElement('div');\n    this.startHeader = document.createElement('div');\n    this.startMain.setAttribute('id', 'start-screen-container');\n    this.startHeader.setAttribute('id', 'start-header');\n    this.createHeader();\n    this.playerOrRobotChoice();\n    body.appendChild(this.startMain);\n  }\n  return _createClass(StartScreen, [{\n    key: \"createHeader\",\n    value: function createHeader() {\n      var startImg = document.createElement('img');\n      startImg.src = _assets_cruise_png__WEBPACK_IMPORTED_MODULE_0__;\n      startImg.classList.add('image');\n      var startImg2 = document.createElement('img');\n      startImg2.src = _assets_cruise_png__WEBPACK_IMPORTED_MODULE_0__;\n      startImg2.classList.add('image');\n      var startText = document.createTextNode('BATTLESHIP');\n      this.startHeader.appendChild(startImg);\n      this.startHeader.appendChild(startText);\n      this.startHeader.appendChild(startImg2);\n      this.startMain.appendChild(this.startHeader);\n    }\n  }, {\n    key: \"playerOrRobotChoice\",\n    value: function playerOrRobotChoice() {\n      var playerOrRobotContainer = document.createElement('div');\n      playerOrRobotContainer.setAttribute('id', 'player-or-robot-container');\n      var or = document.createElement('div');\n      or.textContent = 'OR';\n      or.setAttribute('id', 'or');\n      var playerVsPlayer = _assertClassBrand(_StartScreen_brand, this, _createPlayerOption).call(this, 'Player', 'Player');\n      var playerVsRobot = _assertClassBrand(_StartScreen_brand, this, _createPlayerOption).call(this, 'Player', 'Bot');\n      playerOrRobotContainer.appendChild(playerVsPlayer);\n      playerOrRobotContainer.appendChild(or);\n      playerOrRobotContainer.appendChild(playerVsRobot);\n      this.startMain.appendChild(playerOrRobotContainer);\n    }\n  }]);\n}();\nfunction _createPlayerOption(player1, player2) {\n  var playerOption = document.createElement('div');\n  playerOption.setAttribute('id', \"player-vs-\".concat(player2.toLowerCase()));\n  var playerText1 = document.createTextNode(player1);\n  var vsImg = document.createElement('img');\n  vsImg.src = _assets_sword_png__WEBPACK_IMPORTED_MODULE_1__;\n  vsImg.classList.add('image');\n  var playerText2 = document.createTextNode(player2);\n  playerOption.appendChild(playerText1);\n  playerOption.appendChild(vsImg);\n  playerOption.appendChild(playerText2);\n  return playerOption;\n}\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (StartScreen);\n\n//# sourceURL=webpack://battleship/./src/appearance/startScreen.js?");
 
 /***/ }),
 
-/***/ "./src/test.js":
+/***/ "./src/main.js":
 /*!*********************!*\
-  !*** ./src/test.js ***!
+  !*** ./src/main.js ***!
   \*********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* binding */ log)\n/* harmony export */ });\nfunction log() {\n  alert(1234);\n}\n\n//# sourceURL=webpack://battleship/./src/test.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _styles_main_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./styles/main.css */ \"./src/styles/main.css\");\n/* harmony import */ var _appearance_startScreen__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./appearance/startScreen */ \"./src/appearance/startScreen.js\");\n\n\nnew _appearance_startScreen__WEBPACK_IMPORTED_MODULE_1__[\"default\"]();\n\n//# sourceURL=webpack://battleship/./src/main.js?");
 
 /***/ }),
 
@@ -36,7 +36,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \*******************************************************************/
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/noSourceMaps.js */ \"./node_modules/css-loader/dist/runtime/noSourceMaps.js\");\n/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ \"./node_modules/css-loader/dist/runtime/api.js\");\n/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);\n// Imports\n\n\nvar ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));\n// Module\n___CSS_LOADER_EXPORT___.push([module.id, `body {\r\n    background-color: #233432;\r\n}`, \"\"]);\n// Exports\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);\n\n\n//# sourceURL=webpack://battleship/./src/styles/main.css?./node_modules/css-loader/dist/cjs.js");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/noSourceMaps.js */ \"./node_modules/css-loader/dist/runtime/noSourceMaps.js\");\n/* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ \"./node_modules/css-loader/dist/runtime/api.js\");\n/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);\n// Imports\n\n\nvar ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));\n___CSS_LOADER_EXPORT___.push([module.id, \"@import url(https://fonts.googleapis.com/css2?family=Big+Shoulders+Stencil+Text:wght@100..900&display=swap);\"]);\n// Module\n___CSS_LOADER_EXPORT___.push([module.id, `body {\r\n    padding: 0;\r\n    margin: 0;\r\n    background-color: #000d28;\r\n    color: aliceblue;\r\n    font-family: 'Big Shoulders Stencil Text', 'Times New Roman', Times, serif;\r\n    height: 100vh;\r\n}\r\n\r\n/* STYLES OF START SCREEN */\r\n#start-screen-container {\r\n    display: flex;\r\n    flex-direction: column;\r\n    align-items: center;\r\n    justify-content: center;\r\n}\r\n\r\n#start-header {\r\n    display: flex;\r\n    font-size: clamp(44px, 7vw, 64px);\r\n    font-weight: 900;\r\n    letter-spacing: 2px;\r\n    align-items: center;\r\n    margin-top: 90px;\r\n}\r\n\r\n#player-or-robot-container {\r\n    display: flex;\r\n    flex-direction: column;\r\n    align-items: start;\r\n    justify-content: center;\r\n    margin: 40px 0;\r\n}\r\n\r\n#player-vs-player, #player-vs-bot {\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    font-weight: 700;\r\n    font-size: clamp(34px, 6vw, 50px);\r\n    cursor: pointer;\r\n    margin: 40px 0;\r\n    padding: 20px 30px;\r\n}\r\n#player-vs-player:hover, #player-vs-bot:hover {\r\n    border: 3px solid rgb(0, 170, 255);\r\n    border-radius: 10px;\r\n    background-color: rgb(190, 225, 255);\r\n    box-shadow:  0px 5px rgb(0, 170, 255);\r\n    color: rgb(42, 42, 42);\r\n}\r\n#player-vs-player:active, #player-vs-bot:active {\r\n    transform: scale(0.97);\r\n    border: 3px solid rgb(0, 135, 202);\r\n    border-radius: 10px;\r\n    background-color: rgb(136, 161, 184);\r\n    box-shadow:  0px 5px rgb(0, 142, 213);\r\n    color: rgb(31, 31, 31);\r\n}\r\n\r\n#player-vs-bot {\r\n    padding-right: 65px;\r\n}\r\n\r\n#player-vs-player img, #player-vs-bot img {\r\n    padding: 0 15px;\r\n}\r\n\r\n#or {\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    width: 100%;\r\n    font-size: clamp(24px, 4vw, 30px);\r\n}\r\n\r\n.image {\r\n    width: clamp(65px, 7vw, 75px);\r\n}\r\n/* STYLES OF START SCREEN */\r\n\r\n@media screen and (max-width: 755px){\r\n    #start-header {\r\n        margin-top: 150px;\r\n    }\r\n}`, \"\"]);\n// Exports\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);\n\n\n//# sourceURL=webpack://battleship/./src/styles/main.css?./node_modules/css-loader/dist/cjs.js");
 
 /***/ }),
 
@@ -128,6 +128,26 @@ eval("\n\n/* istanbul ignore next  */\nfunction apply(styleElement, options, obj
 
 eval("\n\n/* istanbul ignore next  */\nfunction styleTagTransform(css, styleElement) {\n  if (styleElement.styleSheet) {\n    styleElement.styleSheet.cssText = css;\n  } else {\n    while (styleElement.firstChild) {\n      styleElement.removeChild(styleElement.firstChild);\n    }\n    styleElement.appendChild(document.createTextNode(css));\n  }\n}\nmodule.exports = styleTagTransform;\n\n//# sourceURL=webpack://battleship/./node_modules/style-loader/dist/runtime/styleTagTransform.js?");
 
+/***/ }),
+
+/***/ "./src/assets/cruise.png":
+/*!*******************************!*\
+  !*** ./src/assets/cruise.png ***!
+  \*******************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+eval("module.exports = __webpack_require__.p + \"cruise.png\";\n\n//# sourceURL=webpack://battleship/./src/assets/cruise.png?");
+
+/***/ }),
+
+/***/ "./src/assets/sword.png":
+/*!******************************!*\
+  !*** ./src/assets/sword.png ***!
+  \******************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+eval("module.exports = __webpack_require__.p + \"sword.png\";\n\n//# sourceURL=webpack://battleship/./src/assets/sword.png?");
+
 /***/ })
 
 /******/ 	});
@@ -181,6 +201,18 @@ eval("\n\n/* istanbul ignore next  */\nfunction styleTagTransform(css, styleElem
 /******/ 		};
 /******/ 	})();
 /******/ 	
+/******/ 	/* webpack/runtime/global */
+/******/ 	(() => {
+/******/ 		__webpack_require__.g = (function() {
+/******/ 			if (typeof globalThis === 'object') return globalThis;
+/******/ 			try {
+/******/ 				return this || new Function('return this')();
+/******/ 			} catch (e) {
+/******/ 				if (typeof window === 'object') return window;
+/******/ 			}
+/******/ 		})();
+/******/ 	})();
+/******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
 /******/ 	(() => {
 /******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
@@ -197,6 +229,29 @@ eval("\n\n/* istanbul ignore next  */\nfunction styleTagTransform(css, styleElem
 /******/ 		};
 /******/ 	})();
 /******/ 	
+/******/ 	/* webpack/runtime/publicPath */
+/******/ 	(() => {
+/******/ 		var scriptUrl;
+/******/ 		if (__webpack_require__.g.importScripts) scriptUrl = __webpack_require__.g.location + "";
+/******/ 		var document = __webpack_require__.g.document;
+/******/ 		if (!scriptUrl && document) {
+/******/ 			if (document.currentScript)
+/******/ 				scriptUrl = document.currentScript.src;
+/******/ 			if (!scriptUrl) {
+/******/ 				var scripts = document.getElementsByTagName("script");
+/******/ 				if(scripts.length) {
+/******/ 					var i = scripts.length - 1;
+/******/ 					while (i > -1 && (!scriptUrl || !/^http(s?):/.test(scriptUrl))) scriptUrl = scripts[i--].src;
+/******/ 				}
+/******/ 			}
+/******/ 		}
+/******/ 		// When supporting browsers where an automatic publicPath is not supported you must specify an output.publicPath manually via configuration
+/******/ 		// or pass an empty string ("") and set the __webpack_public_path__ variable from your code to use your own logic.
+/******/ 		if (!scriptUrl) throw new Error("Automatic publicPath is not supported in this browser");
+/******/ 		scriptUrl = scriptUrl.replace(/#.*$/, "").replace(/\?.*$/, "").replace(/\/[^\/]+$/, "/");
+/******/ 		__webpack_require__.p = scriptUrl;
+/******/ 	})();
+/******/ 	
 /******/ 	/* webpack/runtime/nonce */
 /******/ 	(() => {
 /******/ 		__webpack_require__.nc = undefined;
@@ -207,7 +262,7 @@ eval("\n\n/* istanbul ignore next  */\nfunction styleTagTransform(css, styleElem
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module can't be inlined because the eval devtool is used.
-/******/ 	var __webpack_exports__ = __webpack_require__("./src/index.js");
+/******/ 	var __webpack_exports__ = __webpack_require__("./src/main.js");
 /******/ 	
 /******/ })()
 ;
