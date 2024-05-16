@@ -1,12 +1,26 @@
 @import url('https://fonts.googleapis.com/css2?family=Big+Shoulders+Stencil+Text:wght@100..900&display=swap');
 
+* {
+    color: aliceblue;
+    font-family: 'Big Shoulders Stencil Text', 'Times New Roman', Times, serif;
+}
+
 body {
     padding: 0;
     margin: 0;
     background-color: #000d28;
-    color: aliceblue;
-    font-family: 'Big Shoulders Stencil Text', 'Times New Roman', Times, serif;
     height: 100vh;
+    box-sizing: border-box;
+
+    /* disable text selection */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+button {
+    cursor: pointer;
 }
 
 /* STYLES OF START SCREEN */
@@ -23,7 +37,10 @@ body {
     font-weight: 900;
     letter-spacing: 2px;
     align-items: center;
-    margin-top: 90px;
+    margin-top: 13vh;
+}
+#start-header img {
+    width: clamp(70px, 9vw, 95px);
 }
 
 #player-or-robot-container {
@@ -32,6 +49,14 @@ body {
     align-items: start;
     justify-content: center;
     margin: 40px 0;
+}
+
+.active-player-vs-bot {
+    border: 3px solid rgb(0, 170, 255);
+    border-radius: 10px;
+    background-color: rgb(190, 225, 255);
+    box-shadow:  0px 5px rgb(0, 170, 255);
+    color: rgb(42, 42, 42);
 }
 
 #player-vs-player, #player-vs-bot {
@@ -45,10 +70,10 @@ body {
     padding: 20px 30px;
 }
 #player-vs-player:hover, #player-vs-bot:hover {
-    border: 3px solid rgb(0, 170, 255);
+    border: 2px solid rgb(0, 170, 255);
     border-radius: 10px;
     background-color: rgb(190, 225, 255);
-    box-shadow:  0px 5px rgb(0, 170, 255);
+    box-shadow:  0px 10px 10px rgb(0, 170, 255);
     color: rgb(42, 42, 42);
 }
 #player-vs-player:active, #player-vs-bot:active {
@@ -61,11 +86,12 @@ body {
 }
 
 #player-vs-bot {
-    padding-right: 65px;
+    padding-right: 75px;
 }
 
 #player-vs-player img, #player-vs-bot img {
-    padding: 0 15px;
+    padding: 0 25px;
+    width: clamp(50px, 7vw, 65px);
 }
 
 #or {
@@ -76,13 +102,89 @@ body {
     font-size: clamp(24px, 4vw, 30px);
 }
 
-.image {
-    width: clamp(65px, 7vw, 75px);
+#back-next-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    padding: 0px 10px;
+    border-radius: 10px;
+}
+
+#back {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0px 10px;
+    background-color: aliceblue;
+    border: 2px solid aliceblue;
+    border-radius: 10px;
+}
+#back:hover {
+    transform: scale(1.07);
+    box-shadow: 0px 0px 10px aliceblue;
+}
+#back:active {
+    transform: scale(1);
+    box-shadow: 0px 0px 10px rgb(185, 191, 197);
+    background-color: rgb(185, 191, 197);
+    border: 2px solid rgb(185, 191, 197);
+}
+#back img {
+    width: clamp(70px, 9vw, 80px);
+}
+
+#next {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0px 10px;
+    background-color: aliceblue;
+    border: 2px solid aliceblue;
+    border-radius: 10px;
+}
+#next:hover {
+    transform: scale(1.07);
+    box-shadow: 0px 0px 10px aliceblue;
+}
+#next:active {
+    transform: scale(1);
+    box-shadow: 0px 0px 10px rgb(185, 191, 197);
+    background-color: rgb(185, 191, 197);
+    border: 2px solid rgb(185, 191, 197);
+}
+#next img {
+    width: clamp(70px, 9vw, 80px);
 }
 /* STYLES OF START SCREEN */
 
-@media screen and (max-width: 755px){
+
+@media screen and (max-width: 801px){
     #start-header {
-        margin-top: 150px;
+        margin-top: 15vh;
+    }
+    
+    #player-vs-player, #player-vs-bot {
+        font-size: clamp(32px, 6vw, 40px);
+    }
+    
+    #player-vs-bot {
+        padding-right: 55px;
+    }
+    
+    #or {
+        font-size: clamp(20px, 4vw, 26px);
+    }
+
+    #start-header img {
+        width: clamp(65px, 9vw, 80px);
+    }
+
+    #player-vs-player img, #player-vs-bot img {
+        width: clamp(50px, 7vw, 50px);
+    }
+
+    #next img {
+        width: clamp(60px, 9vw, 70px);
     }
 }
