@@ -37,13 +37,13 @@ button {
     font-weight: 900;
     letter-spacing: 2px;
     align-items: center;
-    margin-top: 13vh;
+    margin-top: 8vh;
 }
 #start-header img {
     width: clamp(70px, 9vw, 95px);
 }
 
-#player-or-robot-container {
+#player-or-bot-container {
     display: flex;
     flex-direction: column;
     align-items: start;
@@ -66,7 +66,7 @@ button {
     font-weight: 700;
     font-size: clamp(34px, 6vw, 50px);
     cursor: pointer;
-    margin: 40px 0;
+    margin: 30px 0;
     padding: 20px 30px;
 }
 #player-vs-player:hover, #player-vs-bot:hover {
@@ -160,10 +160,6 @@ button {
 
 
 @media screen and (max-width: 801px){
-    #start-header {
-        margin-top: 15vh;
-    }
-    
     #player-vs-player, #player-vs-bot {
         font-size: clamp(32px, 6vw, 40px);
     }
@@ -185,6 +181,10 @@ button {
     }
 
     #next img {
+        width: clamp(60px, 9vw, 70px);
+    }
+
+    #back img {
         width: clamp(60px, 9vw, 70px);
     }
 }
