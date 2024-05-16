@@ -1,5 +1,7 @@
 import cruise from '../assets/cruise.png';
 import swords from '../assets/sword.png';
+import rightArrow from '../assets/right-arrow.png';
+import leftArrow from '../assets/left-arrow.png';
 
 class StartScreen {
     constructor () {
@@ -13,18 +15,20 @@ class StartScreen {
 
         this.createHeader();
         this.playerOrRobotChoice();
+        this.createNextBackButtons();
 
         body.appendChild(this.startMain);
+        
+        this.handlePlayerOrBotChange();
     }
 
+    //  creates start screen header (BATTLESHIP)
     createHeader () {
         const startImg = document.createElement('img');
         startImg.src = cruise;
-        startImg.classList.add('image');
 
         const startImg2 = document.createElement('img');
         startImg2.src = cruise;
-        startImg2.classList.add('image');
 
         const startText = document.createTextNode('BATTLESHIP');
 
@@ -35,16 +39,18 @@ class StartScreen {
         this.startMain.appendChild(this.startHeader);
     }
 
+    // creates PlayerVSPlayer and PlayerVSBot containers
     playerOrRobotChoice() {
         const playerOrRobotContainer = document.createElement('div');
-        playerOrRobotContainer.setAttribute('id', 'player-or-robot-container');
-
+        const playerVsPlayer = this.#createPlayerOption('Player', 'Player');
         const or = document.createElement('div');
+        const playerVsRobot = this.#createPlayerOption('Player', 'Bot');
+
+        playerOrRobotContainer.setAttribute('id', 'player-or-robot-container');
+        playerVsPlayer.classList.add('active-player-vs-bot');
+
         or.textContent = 'OR';
         or.setAttribute('id', 'or');
-    
-        const playerVsPlayer = this.#createPlayerOption('Player', 'Player');
-        const playerVsRobot = this.#createPlayerOption('Player', 'Bot');
     
         playerOrRobotContainer.appendChild(playerVsPlayer);
         playerOrRobotContainer.appendChild(or);
@@ -53,21 +59,70 @@ class StartScreen {
         this.startMain.appendChild(playerOrRobotContainer);
     }
 
+    // create options of WhoVSWho according to the passed attributes
     #createPlayerOption(player1, player2) {
         const playerOption = document.createElement('div');
-        playerOption.setAttribute('id', `player-vs-${player2.toLowerCase()}`);
-    
         const playerText1 = document.createTextNode(player1);
-        const vsImg = document.createElement('img');
-        vsImg.src = swords;
-        vsImg.classList.add('image');
         const playerText2 = document.createTextNode(player2);
+        const vsImg = document.createElement('img');
+
+        playerOption.setAttribute('id', `${player1.toLowerCase()}-vs-${player2.toLowerCase()}`);
+    
+        vsImg.src = swords;
     
         playerOption.appendChild(playerText1);
         playerOption.appendChild(vsImg);
         playerOption.appendChild(playerText2);
     
         return playerOption;
+    }
+
+    // adds event listeners to PlayerVSPlayer and PlayerVSBot 
+    // to change the class of the active one
+    handlePlayerOrBotChange () {
+        const playerVsPlayer = document.getElementById('player-vs-player');
+        const playerVsBot = document.getElementById('player-vs-bot');
+
+        playerVsPlayer.addEventListener('click', () => {
+            if (playerVsPlayer.class === undefined) {
+                playerVsBot.classList.remove('active-player-vs-bot')
+                playerVsPlayer.classList.add('active-player-vs-bot');
+            }
+        })
+
+        playerVsBot.addEventListener('click', () => {
+            if (playerVsBot.class === undefined) {
+                playerVsPlayer.classList.remove('active-player-vs-bot')
+                playerVsBot.classList.add('active-player-vs-bot');
+            }
+        })
+    }
+
+    // creates two buttons: back (to go back of the start screen choice) 
+    // and next (to go to the next start screen choice)
+    createNextBackButtons () {
+        const backNextContainer = document.createElement('div');
+        
+        const next = document.createElement('button');
+        const back = document.createElement('button');
+        
+        const nextArrow = document.createElement('img');
+        const backArrow = document.createElement('img');
+        
+        nextArrow.src = rightArrow;
+        backArrow.src = leftArrow;
+        
+        backNextContainer.setAttribute('id', 'back-next-container');
+        next.setAttribute('id', 'next');
+        back.setAttribute('id', 'back');
+        
+        next.appendChild(nextArrow);
+        back.appendChild(backArrow);
+
+        backNextContainer.appendChild(back);
+        backNextContainer.appendChild(next);
+
+        this.startMain.appendChild(backNextContainer);
     }
 }
 
