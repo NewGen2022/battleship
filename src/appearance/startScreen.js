@@ -5,7 +5,7 @@ import leftArrow from '../assets/left-arrow.png';
 
 class StartScreen {
     constructor () {
-        const body = document.querySelector("body");
+        this.body = document.querySelector("body");
 
         this.startMain = document.createElement('div');
         this.startHeader = document.createElement('div');
@@ -13,24 +13,41 @@ class StartScreen {
         this.startMain.setAttribute('id', 'start-screen-container');
         this.startHeader.setAttribute('id', 'start-header');
 
-        this.createHeader();
-        this.playerOrRobotChoice();
-        this.createNextBackButtons();
+        this.generateFirstStartPage();
+        this.generateSecondStartPage();
+    }
 
-        body.appendChild(this.startMain);
-        
+    // creates first start screen page with
+    // choice between PlayerVSPlayer and PlayerVSBot
+    generateFirstStartPage () {
+        this.body.appendChild(this.startMain);
+        this.createHeader();
+        this.generatePlayerOrBotChoice();
+        this.createBackOrNextButton(rightArrow);
         this.handlePlayerOrBotChange();
+    }
+
+    generateSecondStartPage () {
+        const secondPage = document.createElement('h1');
+        secondPage.textContent = 'SECOND PAGE';
+
+        secondPage.style.display = 'none';
+
+        this.startMain.appendChild(secondPage);
+
+        this.createBackOrNextButton(leftArrow);
+        const back = document.getElementById('back');
+        back.style.display = 'none';
     }
 
     //  creates start screen header (BATTLESHIP)
     createHeader () {
         const startImg = document.createElement('img');
-        startImg.src = cruise;
-
-        const startImg2 = document.createElement('img');
-        startImg2.src = cruise;
-
         const startText = document.createTextNode('BATTLESHIP');
+        const startImg2 = document.createElement('img');
+        
+        startImg.src = cruise;
+        startImg2.src = cruise;
 
         this.startHeader.appendChild(startImg);
         this.startHeader.appendChild(startText);
@@ -40,26 +57,28 @@ class StartScreen {
     }
 
     // creates PlayerVSPlayer and PlayerVSBot containers
-    playerOrRobotChoice() {
-        const playerOrRobotContainer = document.createElement('div');
+    // for first page
+    generatePlayerOrBotChoice() {
+        const playerOrBotContainer = document.createElement('div');
         const playerVsPlayer = this.#createPlayerOption('Player', 'Player');
         const or = document.createElement('div');
         const playerVsRobot = this.#createPlayerOption('Player', 'Bot');
 
-        playerOrRobotContainer.setAttribute('id', 'player-or-robot-container');
+        playerOrBotContainer.setAttribute('id', 'player-or-bot-container');
         playerVsPlayer.classList.add('active-player-vs-bot');
 
         or.textContent = 'OR';
         or.setAttribute('id', 'or');
     
-        playerOrRobotContainer.appendChild(playerVsPlayer);
-        playerOrRobotContainer.appendChild(or);
-        playerOrRobotContainer.appendChild(playerVsRobot);
+        playerOrBotContainer.appendChild(playerVsPlayer);
+        playerOrBotContainer.appendChild(or);
+        playerOrBotContainer.appendChild(playerVsRobot);
     
-        this.startMain.appendChild(playerOrRobotContainer);
+        this.startMain.appendChild(playerOrBotContainer);
     }
 
-    // create options of WhoVSWho according to the passed attributes
+    // create options of WhoVSWho according to the 
+    // passed attributes for first page
     #createPlayerOption(player1, player2) {
         const playerOption = document.createElement('div');
         const playerText1 = document.createTextNode(player1);
@@ -78,7 +97,7 @@ class StartScreen {
     }
 
     // adds event listeners to PlayerVSPlayer and PlayerVSBot 
-    // to change the class of the active one
+    // to change the class of the active one for first page
     handlePlayerOrBotChange () {
         const playerVsPlayer = document.getElementById('player-vs-player');
         const playerVsBot = document.getElementById('player-vs-bot');
@@ -98,31 +117,69 @@ class StartScreen {
         })
     }
 
-    // creates two buttons: back (to go back of the start screen choice) 
-    // and next (to go to the next start screen choice)
-    createNextBackButtons () {
-        const backNextContainer = document.createElement('div');
+    // creates button back (to go back of the start screen choice) OR
+    // creates button next (to go to the next start screen choice)
+    // for first page
+    createBackOrNextButton (arrowDirection) {
+        const backOrNextArrow = document.createElement('button');
         
-        const next = document.createElement('button');
-        const back = document.createElement('button');
+        const arrow = document.createElement('img');
         
-        const nextArrow = document.createElement('img');
-        const backArrow = document.createElement('img');
+        arrow.src = arrowDirection;
         
-        nextArrow.src = rightArrow;
-        backArrow.src = leftArrow;
+        if (arrowDirection === leftArrow) {
+            backOrNextArrow.setAttribute('id', 'back');
+            backOrNextArrow.addEventListener('click', () => this.handleFirstPageDisplaying());
+        } else if (arrowDirection === rightArrow) {
+            backOrNextArrow.setAttribute('id', 'next');
+            backOrNextArrow.addEventListener('click', () => this.handleSecondPageGeneration());
+        }
         
-        backNextContainer.setAttribute('id', 'back-next-container');
-        next.setAttribute('id', 'next');
-        back.setAttribute('id', 'back');
-        
-        next.appendChild(nextArrow);
-        back.appendChild(backArrow);
+        backOrNextArrow.appendChild(arrow);
 
-        backNextContainer.appendChild(back);
-        backNextContainer.appendChild(next);
+        this.startMain.appendChild(backOrNextArrow);
+    }
+    
+    handleFirstPageDisplaying () {
+        this.displayFirstPageElements();
+        this.hideSecondPageElements();
+    }
 
-        this.startMain.appendChild(backNextContainer);
+    handleSecondPageGeneration () {
+        this.hideFirstPageElements();
+        this.displaySecondPageElements();
+    }
+
+    // sets display style of all 'first start page' elements to FLEX
+    displayFirstPageElements () {
+        const playerOrBotContainer = document.getElementById('player-or-bot-container');
+        const next = document.getElementById('next');
+        playerOrBotContainer.style.display = 'flex';
+        next.style.display = 'flex';
+    }
+
+    // sets display style of all 'second start page' elements to FLEX
+    displaySecondPageElements () {
+        const secondPage = document.querySelector('h1');
+        const back = document.getElementById('back');
+        secondPage.style.display = 'flex';
+        back.style.display = 'flex';
+    }
+
+    // sets display style of all 'first start page' elements to NONE
+    hideFirstPageElements () {
+        const playerOrBotContainer = document.getElementById('player-or-bot-container');
+        const next = document.getElementById('next');
+        playerOrBotContainer.style.display = 'none';
+        next.style.display = 'none';
+    }
+
+    // sets display style of all 'second start page' elements to NONE
+    hideSecondPageElements () {
+        const secondPage = document.querySelector('h1');
+        const back = document.getElementById('back');
+        secondPage.style.display = 'none';
+        back.style.display = 'none';
     }
 }
 
