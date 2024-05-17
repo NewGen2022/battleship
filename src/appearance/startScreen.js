@@ -3,6 +3,8 @@ import swords from '../assets/sword.png';
 import rightArrow from '../assets/right-arrow.png';
 import leftArrow from '../assets/left-arrow.png';
 
+import { generateFirstPage, generateSecondPage } from './hideDisplayPages';
+
 class StartScreen {
     constructor () {
         this.body = document.querySelector("body");
@@ -129,57 +131,15 @@ class StartScreen {
         
         if (arrowDirection === leftArrow) {
             backOrNextArrow.setAttribute('id', 'back');
-            backOrNextArrow.addEventListener('click', () => this.handleFirstPageDisplaying());
+            backOrNextArrow.addEventListener('click', () => generateFirstPage());
         } else if (arrowDirection === rightArrow) {
             backOrNextArrow.setAttribute('id', 'next');
-            backOrNextArrow.addEventListener('click', () => this.handleSecondPageGeneration());
+            backOrNextArrow.addEventListener('click', () => generateSecondPage());
         }
         
         backOrNextArrow.appendChild(arrow);
 
         this.startMain.appendChild(backOrNextArrow);
-    }
-    
-    handleFirstPageDisplaying () {
-        this.displayFirstPageElements();
-        this.hideSecondPageElements();
-    }
-
-    handleSecondPageGeneration () {
-        this.hideFirstPageElements();
-        this.displaySecondPageElements();
-    }
-
-    // sets display style of all 'first start page' elements to FLEX
-    displayFirstPageElements () {
-        const playerOrBotContainer = document.getElementById('player-or-bot-container');
-        const next = document.getElementById('next');
-        playerOrBotContainer.style.display = 'flex';
-        next.style.display = 'flex';
-    }
-
-    // sets display style of all 'second start page' elements to FLEX
-    displaySecondPageElements () {
-        const secondPage = document.querySelector('h1');
-        const back = document.getElementById('back');
-        secondPage.style.display = 'flex';
-        back.style.display = 'flex';
-    }
-
-    // sets display style of all 'first start page' elements to NONE
-    hideFirstPageElements () {
-        const playerOrBotContainer = document.getElementById('player-or-bot-container');
-        const next = document.getElementById('next');
-        playerOrBotContainer.style.display = 'none';
-        next.style.display = 'none';
-    }
-
-    // sets display style of all 'second start page' elements to NONE
-    hideSecondPageElements () {
-        const secondPage = document.querySelector('h1');
-        const back = document.getElementById('back');
-        secondPage.style.display = 'none';
-        back.style.display = 'none';
     }
 }
 
