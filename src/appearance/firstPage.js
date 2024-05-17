@@ -4,8 +4,7 @@ import { createBackOrNextButton } from './hideDisplayPages';
  
 class FirstPage {
     constructor () {
-        this.startMain = document.createElement('div');
-        this.startMain.setAttribute('id', 'start-screen-container');
+        this.startMain = document.getElementById('start-screen-container');
 
         this.generateFirstStartPage();
     }
@@ -13,12 +12,14 @@ class FirstPage {
     // creates first start screen page with
     // choice between PlayerVSPlayer and PlayerVSBot
     generateFirstStartPage () {
-        const body = document.querySelector("body");
-        body.appendChild(this.startMain);
-
+        const body = document.querySelector('body');
+        
         this.generatePlayerOrBotChoice();
-        createBackOrNextButton(rightArrow);
         this.handlePlayerOrBotChange();
+        
+        createBackOrNextButton(rightArrow);
+        
+        body.appendChild(this.startMain);
     }
 
     // creates PlayerVSPlayer and PlayerVSBot containers
