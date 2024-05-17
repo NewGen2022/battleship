@@ -42,7 +42,30 @@ function generateSecondPage () {
     displaySecondPageElements();
 }
 
+    // creates button back (to go back of the start screen choice) OR
+    // creates button next (to go to the next start screen choice)
+function createBackOrNextButton (arrowDirection) {
+        const backOrNextArrow = document.createElement('button');
+        
+        const arrow = document.createElement('img');
+        
+        arrow.src = arrowDirection;
+        
+        if (arrowDirection === leftArrow) {
+            backOrNextArrow.setAttribute('id', 'back');
+            backOrNextArrow.addEventListener('click', () => generateFirstPage());
+        } else if (arrowDirection === rightArrow) {
+            backOrNextArrow.setAttribute('id', 'next');
+            backOrNextArrow.addEventListener('click', () => generateSecondPage());
+        }
+        
+        backOrNextArrow.appendChild(arrow);
+
+        this.startMain.appendChild(backOrNextArrow);
+}
+
 export {
     generateFirstPage,
-    generateSecondPage
+    generateSecondPage,
+    createBackOrNextButton
 };
