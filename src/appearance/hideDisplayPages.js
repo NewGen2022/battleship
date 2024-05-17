@@ -1,3 +1,6 @@
+import leftArrow from '../assets/left-arrow.png';
+import rightArrow from '../assets/right-arrow.png';
+
 // sets display style of all 'first start page' elements to FLEX
 function displayFirstPageElements () {
     const playerOrBotContainer = document.getElementById('player-or-bot-container');
@@ -31,41 +34,38 @@ function hideSecondPageElements () {
 }
 
 // shows 'first page' and hides 'second page' 
-function generateFirstPage () {
+function displayFirstPage () {
     displayFirstPageElements();
     hideSecondPageElements();
 }
 
 // shows 'second page' and hides 'first page' 
-function generateSecondPage () {
+function displaySecondPage () {
     hideFirstPageElements();
     displaySecondPageElements();
 }
 
-    // creates button back (to go back of the start screen choice) OR
-    // creates button next (to go to the next start screen choice)
+// creates button back (to go back of the start screen choice) OR
+// creates button next (to go to the next start screen choice)
 function createBackOrNextButton (arrowDirection) {
-        const backOrNextArrow = document.createElement('button');
-        
-        const arrow = document.createElement('img');
-        
-        arrow.src = arrowDirection;
-        
-        if (arrowDirection === leftArrow) {
-            backOrNextArrow.setAttribute('id', 'back');
-            backOrNextArrow.addEventListener('click', () => generateFirstPage());
-        } else if (arrowDirection === rightArrow) {
-            backOrNextArrow.setAttribute('id', 'next');
-            backOrNextArrow.addEventListener('click', () => generateSecondPage());
-        }
-        
-        backOrNextArrow.appendChild(arrow);
-
-        this.startMain.appendChild(backOrNextArrow);
+    const startMain = document.getElementById('start-screen-container');
+    const backOrNextArrow = document.createElement('button');
+    const arrow = document.createElement('img');
+    
+    arrow.src = arrowDirection;
+    
+    if (arrowDirection === leftArrow) {
+        backOrNextArrow.setAttribute('id', 'back');
+        backOrNextArrow.addEventListener('click', () => displayFirstPage());
+    } else if (arrowDirection === rightArrow) {
+        backOrNextArrow.setAttribute('id', 'next');
+        backOrNextArrow.addEventListener('click', () => displaySecondPage());
+    }
+    
+    backOrNextArrow.appendChild(arrow);
+    startMain.appendChild(backOrNextArrow);
 }
 
 export {
-    generateFirstPage,
-    generateSecondPage,
     createBackOrNextButton
 };
