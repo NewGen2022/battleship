@@ -45,6 +45,10 @@ button {
     align-items: center;
     justify-content: center;
     height: 100%;
+
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(5px);
 }
 
 #start-header {
@@ -53,6 +57,13 @@ button {
     font-weight: 900;
     letter-spacing: 2px;
     align-items: center;
+
+    background: rgba(0, 0, 0, 0.511);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(5px);
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.511);
+    padding: 20px;
 }
 #start-header img {
     width: clamp(70px, 9vw, 95px);
@@ -64,6 +75,13 @@ button {
     align-items: start;
     justify-content: center;
     margin: 40px 0;
+
+    background: rgba(0, 0, 0, 0.511);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(5px);
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.511);
+    padding: 20px 4vw;
 }
 
 .active-player-vs-bot {
@@ -192,12 +210,25 @@ button {
         font-size: clamp(20px, 4vw, 26px);
     }
 
+    #start-header {
+        font-size: clamp(34px, 7vw, 54px);
+    }
+
     #start-header img {
-        width: clamp(65px, 9vw, 80px);
+        width: clamp(55px, 9vw, 80px);
+    }
+
+    #player-or-bot-container {
+        margin: 30px 0;
+    }
+
+    #player-vs-player, #player-vs-bot {
+        font-size: clamp(30px, 6vw, 40px);
     }
 
     #player-vs-player img, #player-vs-bot img {
-        width: clamp(50px, 7vw, 50px);
+        width: clamp(55px, 7vw, 50px);
+        padding: 0 15px;
     }
 
     #next img {
