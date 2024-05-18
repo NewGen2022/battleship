@@ -1,12 +1,15 @@
 import swords from '../assets/sword.png';
 import rightArrow from '../assets/right-arrow.png';
 import { createBackOrNextButton } from './hideDisplayPages';
+import SecondPage from './secondPage';
  
 class FirstPage {
     constructor () {
         this.startMain = document.getElementById('start-screen-container');
 
         this.generateFirstStartPage();
+
+        this.secondPage = new SecondPage();
     }
 
     // creates first start screen page with
@@ -17,7 +20,10 @@ class FirstPage {
         this.generatePlayerOrBotChoice();
         this.handlePlayerOrBotChange();
         
-        createBackOrNextButton(rightArrow);
+        createBackOrNextButton(rightArrow, (playerOrBot) => {
+            console.log(playerOrBot.id);
+            this.secondPage.generateNameInput(playerOrBot.id);
+        });
         
         body.appendChild(this.startMain);
     }
