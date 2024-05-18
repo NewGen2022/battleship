@@ -31,7 +31,7 @@ class FirstPage {
         const playerVsRobot = this.#createPlayerOption('Player', 'Bot');
 
         playerOrBotContainer.setAttribute('id', 'player-or-bot-container');
-        playerVsPlayer.classList.add('active-player-vs-bot');
+        playerVsPlayer.classList.add('active-play');
 
         or.textContent = 'OR';
         or.setAttribute('id', 'or');
@@ -70,15 +70,15 @@ class FirstPage {
 
         playerVsPlayer.addEventListener('click', () => {
             if (playerVsPlayer.class === undefined) {
-                playerVsBot.classList.remove('active-player-vs-bot')
-                playerVsPlayer.classList.add('active-player-vs-bot');
+                playerVsBot.classList.remove('active-play')
+                playerVsPlayer.classList.add('active-play');
             }
         })
 
         playerVsBot.addEventListener('click', () => {
             if (playerVsBot.class === undefined) {
-                playerVsPlayer.classList.remove('active-player-vs-bot')
-                playerVsBot.classList.add('active-player-vs-bot');
+                playerVsPlayer.classList.remove('active-play')
+                playerVsBot.classList.add('active-play');
             }
         })
     }
