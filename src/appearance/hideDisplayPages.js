@@ -11,10 +11,10 @@ function displayFirstPageElements () {
 
 // sets display style of all 'second start page' elements to FLEX
 function displaySecondPageElements () {
-    const secondPage = document.querySelector('h1');
     const back = document.getElementById('back');
-    secondPage.style.display = 'flex';
+    const inputs = document.getElementById('inputs');
     back.style.display = 'flex';
+    inputs.style.display = 'flex';
 }
 
 // sets display style of all 'first start page' elements to NONE
@@ -27,10 +27,10 @@ function hideFirstPageElements () {
 
 // sets display style of all 'second start page' elements to NONE
 function hideSecondPageElements () {
-    const secondPage = document.querySelector('h1');
     const back = document.getElementById('back');
-    secondPage.style.display = 'none';
+    const inputs = document.getElementById('inputs');
     back.style.display = 'none';
+    inputs.style.display = 'none';
 }
 
 // shows 'first page' and hides 'second page' 
@@ -47,7 +47,7 @@ function displaySecondPage () {
 
 // creates button back (to go back of the start screen choice) OR
 // creates button next (to go to the next start screen choice)
-function createBackOrNextButton (arrowDirection) {
+function createBackOrNextButton (arrowDirection, callback) {
     const startMain = document.getElementById('start-screen-container');
     const backOrNextArrow = document.createElement('button');
     const arrow = document.createElement('img');
@@ -59,7 +59,11 @@ function createBackOrNextButton (arrowDirection) {
         backOrNextArrow.addEventListener('click', () => displayFirstPage());
     } else if (arrowDirection === rightArrow) {
         backOrNextArrow.setAttribute('id', 'next');
-        backOrNextArrow.addEventListener('click', () => displaySecondPage());
+        backOrNextArrow.addEventListener('click', () => {
+            displaySecondPage()
+            const playerOrBot = document.querySelector('.active-play');
+            callback(playerOrBot);
+        });
     }
     
     backOrNextArrow.appendChild(arrow);
