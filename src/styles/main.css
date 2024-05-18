@@ -84,7 +84,7 @@ button {
     padding: 20px 4vw;
 }
 
-.active-player-vs-bot {
+.active-play {
     border: 3px solid rgb(0, 170, 255);
     border-radius: 10px;
     background-color: rgb(190, 225, 255);
@@ -145,7 +145,7 @@ button {
 }
 
 #back {
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
     padding: 0px 10px;
@@ -191,6 +191,51 @@ button {
 }
 /* STYLES OF START SCREEN */
 
+#inputs {
+    display: none;
+    gap: 3vw;
+}
+
+#inputs input {
+    color: black;
+    font-size: 4vh;
+    font-weight: 900;
+    border: 1px solid #a3a3a3;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px #a3a3a3;
+    padding: 7px 15px;
+    outline: none;
+    background-color: #f2f2f2;
+    margin-top: 40px;
+}
+#inputs input::placeholder {
+    font-weight: 600;
+}
+
+#left-input {
+    display: flex;
+    flex-direction: column;
+}
+
+#right-input {
+    display: flex;
+    flex-direction: column;
+}
+
+#player1-input:hover, #player2-input:hover {
+    cursor: pointer;
+}
+#player1-input:focus , #player2-input:focus {
+    transform: scale(1.02);
+}
+#player1-input:not(:focus), #player2-input:not(:focus) {
+    transform: scale(1);
+}
+
+#bot-input {
+    background-color: #f2f2f2;
+    cursor: not-allowed;
+}
 
 @media screen and (max-width: 760px){
     body::before {
@@ -237,5 +282,9 @@ button {
 
     #back img {
         width: clamp(60px, 9vw, 70px);
+    }
+
+    #inputs {
+        flex-direction: column;
     }
 }
