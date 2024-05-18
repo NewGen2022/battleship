@@ -1,6 +1,5 @@
 import cruise from '../assets/cruise.png';
 import FirstPage from './firstPage';
-import SecondPage from './secondPage';
 
 class StartScreen {
     constructor () {
@@ -16,7 +15,6 @@ class StartScreen {
 
         this.createHeader();
         new FirstPage();
-        new SecondPage();
     }
 
     //  creates start screen header (BATTLESHIP)
