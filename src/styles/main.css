@@ -8,7 +8,7 @@
 body {
     padding: 0;
     margin: 0;
-    background-color: #000d28;
+    background-color: #001d5d;
     height: 100%;
     box-sizing: border-box;
 
@@ -256,12 +256,12 @@ button {
     align-items: center;
     width: 2.5vw;
     height: 2.5vw;
-    border: 1px solid rgb(0, 55, 255);
-    background-color: #f0f0f0;
+    border: 1px solid #f0f0f0;
+    background-color: #f0f0f066;
 }
 
 .ship-cell {
-    background-color: #8b0000;
+    background-color: #292929;
 }
 
 .missed-cell {
@@ -269,12 +269,54 @@ button {
 }
 
 .board-cell:hover {
-    background-color: #ddd;
+    background-color: #00ff40;
 }
 
 .disable-board {
     background-color: #7e7e7e;
 }
+
+.buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.random, .done, .clear {
+    color: black;
+    font-size: 18px;
+    border: 1px solid rgb(149, 149, 149);
+    border-radius: 7px;
+    padding: 3px 15px;
+    margin-top: 20px;
+}
+.random:hover {
+    background-color: #e1ff00;
+    border: 1px solid #e1ff00;
+    box-shadow: 0px 0px 10px #e1ff00;
+}
+.done:hover {
+    background-color: #00ff40;
+    border: 1px solid #00ff40;
+    box-shadow: 0px 0px 10px #00ff40;
+    color: white;
+}
+.clear:hover {
+    background-color: #ff2200;
+    border: 1px solid #ff2200;
+    box-shadow: 0px 0px 10px #ff2200;
+    color: white;
+}
+
+.random:hover, .done:hover, .clear:hover {
+    transform: scale(1.05);
+}
+.random:active, .done:active, .clear:active {
+    transform: scale(1);
+}
+
+
 /* STYLES OF START SCREEN SECOND PAGE */
 
 @media screen and (max-width: 760px){
@@ -343,7 +385,7 @@ button {
 
 }
 
-@media screen and (max-width: 450px){
+@media screen and (max-width: 520px){
     .board-cell {
         width: 7vw;
         height: 7vw;
