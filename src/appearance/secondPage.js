@@ -1,6 +1,7 @@
 import leftArrow from '../assets/left-arrow.png';
 import { createBackOrNextButton } from './hideDisplayPages';
 import GameBoard from '../factories/Gameboard';
+import Ship from '../factories/Ship';
 
 class SecondPage {
     constructor () {
@@ -51,6 +52,8 @@ class SecondPage {
             player2 = this.#createNameInput('bot');
         }
 
+        player1.classList.add('active-player-input');
+
         this.leftInput.appendChild(player1);
         this.rightInput.appendChild(player2);
 
@@ -62,7 +65,7 @@ class SecondPage {
         const player2 = document.getElementById('player2-input');
 
         this.displayLeftBoard();
-        this.displayRightBoard();
+        this.displayRightBoard(player2 === null);
         
         if (!player2) {
             const rightBoard = document.getElementById('right-board');
@@ -73,8 +76,115 @@ class SecondPage {
         }
     }
 
+    displayButtons () {
+        const btnContainer = document.createElement('div');
+        btnContainer.classList.add('buttons');
+
+        const activePlayerInput = document.querySelector('.active-player-input').id;
+        let currentBoard = document.getElementById('left-input');
+
+        if (activePlayerInput === 'player2-input') {
+            currentBoard.removeChild(currentBoard.querySelector('.buttons'));
+            currentBoard = document.getElementById('right-input');
+        }
+
+        const random = this.createRandomBtn();
+        const done = this.createDoneBtn();
+        const clear = this.createClearBtn();
+
+        btnContainer.appendChild(random);
+        btnContainer.appendChild(done);
+        btnContainer.appendChild(clear);
+
+        currentBoard.appendChild(btnContainer);
+    }
+
+    createRandomBtn () {
+        const random = document.createElement('button');
+        random.classList.add('random');
+        random.textContent = 'RANDOM';
+
+        random.addEventListener('click', () => {
+            const activePlayerInput = document.querySelector('.active-player-input').id;
+
+            if (activePlayerInput === 'player1-input') {
+                this.leftBoardLogic.placeShipRandomly();
+            } else if (activePlayerInput === 'player2-input') {
+                this.rightBoardLogic.placeShipRandomly();
+            }
+
+            this.displayGameBoard();
+        })
+
+        return random
+    }
+
+    createDoneBtn () {
+        const done = document.createElement('button');
+        done.classList.add('done');
+        done.textContent = 'DONE';
+
+        done.addEventListener('click', () => {
+            const  activePlayerInput = document.querySelector('.active-player-input').id;
+
+            if (activePlayerInput === 'player1-input') {
+                if (!this.leftBoardLogic.isEmpty()) {
+                    const player2Active = document.getElementById('player2-input');
+                    
+                    if (!player2Active) {
+                        this.startGame();
+                        return true;
+                    }
+
+
+                    const notActivePlayerInput = document.getElementById(activePlayerInput);
+                    notActivePlayerInput.classList.remove('active-player-input');
+
+                    player2Active.classList.add('active-player-input');
+
+                    this.displayButtons();
+                    this.displayGameBoard();
+                }
+            } else if (activePlayerInput === 'player2-input') {
+                if (!this.rightBoardLogic.isEmpty()) {
+                    this.startGame();
+                }
+            }
+        })
+
+        return done;
+    }
+
+    createClearBtn () {
+        const clear = document.createElement('button');
+        clear.classList.add('clear');
+        clear.textContent = 'CLEAR';
+
+        clear.addEventListener('click', () => {
+            const  activePlayerInput = document.querySelector('.active-player-input').id;
+
+            if (activePlayerInput === 'player1-input') {
+                this.leftBoardLogic.board = []
+                this.leftBoardLogic.init();
+            } else if (activePlayerInput === 'player2-input') {
+                this.rightBoardLogic.board = []
+                this.rightBoardLogic.init();
+            }
+
+            this.displayGameBoard();
+        })
+
+
+        return clear;
+    }
+
+    startGame () {
+        console.log('start');
+    }
+
     displayLeftBoard() {
         this.leftBoard.innerHTML = ''; // Clear previous board display
+        
         this.leftBoardLogic.board.forEach((row, rowIndex) => {
             const rowDiv = document.createElement('div');
             rowDiv.classList.add('board-row');
@@ -98,8 +208,13 @@ class SecondPage {
         this.leftInput.appendChild(this.leftBoard);
     }
 
-    displayRightBoard() {
+    displayRightBoard(isBot) {
         this.rightBoard.innerHTML = ''; // Clear previous board display
+        
+        if (isBot) {
+            this.rightBoardLogic.placeShipRandomly();
+        }
+        
         this.rightBoardLogic.board.forEach((row, rowIndex) => {
             const rowDiv = document.createElement('div');
             rowDiv.classList.add('board-row');
@@ -122,7 +237,6 @@ class SecondPage {
 
         this.rightInput.appendChild(this.rightBoard);
     }
-    
 
     #createNameInput (player) {
         const input = document.createElement('input');
