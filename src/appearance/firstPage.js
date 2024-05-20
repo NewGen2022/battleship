@@ -21,8 +21,8 @@ class FirstPage {
         this.handlePlayerOrBotChange();
         
         createBackOrNextButton(rightArrow, (playerOrBot) => {
-            console.log(playerOrBot.id);
             this.secondPage.generateNameInput(playerOrBot.id);
+            this.secondPage.displayButtons();
             this.secondPage.displayGameBoard();
         });
         
