@@ -9,21 +9,19 @@ body {
     padding: 0;
     margin: 0;
     background-color: #000d28;
-    height: 100vh;
+    height: 100%;
     box-sizing: border-box;
-    position: relative;
-    overflow: hidden;
 
     /* disable text selection */
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-    user-select: none;
+    user-select: none;    
 }
 
 body::before {
     content: "";
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -38,17 +36,13 @@ button {
     cursor: pointer;
 }
 
-/* STYLES OF START SCREEN */
+/* STYLES OF START SCREEN FIRST PAGE */
 #start-screen-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 100%;
-
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(5px);
 }
 
 #start-header {
@@ -57,13 +51,13 @@ button {
     font-weight: 900;
     letter-spacing: 2px;
     align-items: center;
-
     background: rgba(0, 0, 0, 0.511);
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(5px);
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.511);
     padding: 20px;
+    margin-top: 10px;
 }
 #start-header img {
     width: clamp(70px, 9vw, 95px);
@@ -152,6 +146,7 @@ button {
     background-color: aliceblue;
     border: 2px solid aliceblue;
     border-radius: 10px;
+    margin-bottom: 20px;
 }
 #back:hover {
     transform: scale(1.07);
@@ -175,6 +170,7 @@ button {
     background-color: aliceblue;
     border: 2px solid aliceblue;
     border-radius: 10px;
+    margin-bottom: 20px;
 }
 #next:hover {
     transform: scale(1.07);
@@ -189,11 +185,14 @@ button {
 #next img {
     width: clamp(70px, 9vw, 80px);
 }
-/* STYLES OF START SCREEN */
+/* STYLES OF START SCREEN FIRST PAGE */
 
+
+/* STYLES OF START SCREEN SECOND PAGE */
 #inputs {
     display: none;
-    gap: 3vw;
+    gap: 10vw;
+    margin-top: 20px;
 }
 
 #inputs input {
@@ -206,7 +205,6 @@ button {
     padding: 7px 15px;
     outline: none;
     background-color: #f2f2f2;
-    margin-top: 40px;
 }
 #inputs input::placeholder {
     font-weight: 600;
@@ -226,7 +224,7 @@ button {
     cursor: pointer;
 }
 #player1-input:focus , #player2-input:focus {
-    transform: scale(1.02);
+    transform: scale(1.05);
 }
 #player1-input:not(:focus), #player2-input:not(:focus) {
     transform: scale(1);
@@ -236,6 +234,48 @@ button {
     background-color: #f2f2f2;
     cursor: not-allowed;
 }
+
+#bot-input:disabled {
+    background-color: #959595;
+}
+
+#left-board, #right-board {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    margin: 20px auto;
+}
+
+.board-row {
+    display: contents;
+    cursor: crosshair;
+}
+
+.board-cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 2.5vw;
+    height: 2.5vw;
+    border: 1px solid rgb(0, 55, 255);
+    background-color: #f0f0f0;
+}
+
+.ship-cell {
+    background-color: #8b0000;
+}
+
+.missed-cell {
+    background-color: #87ceeb;
+}
+
+.board-cell:hover {
+    background-color: #ddd;
+}
+
+.disable-board {
+    background-color: #7e7e7e;
+}
+/* STYLES OF START SCREEN SECOND PAGE */
 
 @media screen and (max-width: 760px){
     body::before {
@@ -257,6 +297,7 @@ button {
 
     #start-header {
         font-size: clamp(34px, 7vw, 54px);
+        margin-top: 40px;
     }
 
     #start-header img {
@@ -286,5 +327,25 @@ button {
 
     #inputs {
         flex-direction: column;
+    }
+
+    .board-cell {
+        width: 7vw;
+        height: 7vw;
+    }
+}
+
+@media screen and (max-width: 920px){
+    .board-cell {
+        width: 4vw;
+        height: 4vw;
+    }
+
+}
+
+@media screen and (max-width: 450px){
+    .board-cell {
+        width: 7vw;
+        height: 7vw;
     }
 }
