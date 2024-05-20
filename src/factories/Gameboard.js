@@ -6,11 +6,11 @@ class GameBoard {
     constructor () {
         this.board = [];
         this.missedShots = [];
-        this.#init();
+        this.init();
     }
 
     // initialize board
-    #init () {
+    init () {
         for (let i = 0; i < this.#SIZE; i++) {
             this.board[i] = [];
             this.missedShots[i] = [];
@@ -40,22 +40,27 @@ class GameBoard {
 
     // places ship randomly on the board
     placeShipRandomly() {
-        const shipLengths = [5, 4, 3, 3, 2]; // Lengths of the ships
-        // const shipTypes = ["Carrier", "Battleship", "Destroyer", "Submarine", "Patrol Boat"]; // Names of the ships
+        this.board = []
+        this.init();
+
+        const ships = [];
+        const carrier = new Ship(5);
+        const battleship = new Ship(4);
+        const destroyer = new Ship(3);
+        const submarine = new Ship(3);
+        const patrolBoat = new Ship(2);
+        ships.push(carrier, battleship, destroyer, submarine, patrolBoat);
     
-        for (let i = 0; i < shipLengths.length; i++) {
-            let row, column, isHorizontal;
+        let successfulPlacements = 0
     
-            do {
-                row = Math.floor(Math.random() * 10);
-                column = Math.floor(Math.random() * 10);
-                isHorizontal = Math.random() < 0.5;
-            } while (!this.placeShip(new Ship(shipLengths[i]), row, column, isHorizontal));
+        while (successfulPlacements < 5) {
+          const row = Math.floor(Math.random() * 10)
+          const column = Math.floor(Math.random() * 10)
+          const isVertical = Math.floor(Math.random() * 2) === 1 ? true : false
     
-            // console.log(`${shipTypes[i]} placed at row ${row}, column ${column}, ${isHorizontal ? 'horizontal' : 'vertical'}`);
+          if (this.placeShip(ships[successfulPlacements], row, column, isVertical))
+            successfulPlacements++
         }
-    
-        return true;
     }
 
     // checks if player's move is valid
@@ -168,6 +173,16 @@ class GameBoard {
             }
         }
         // If no ship object is found or all ship objects are sunk, return true
+        return true;
+    }
+
+    isEmpty () {
+        for (let i = 0; i < this.#SIZE; i++) {
+            for (let j = 0; j < this.#SIZE; j++) {
+              if (this.board[i][j] !== null) return false;
+            }
+        }
+
         return true;
     }
 }
