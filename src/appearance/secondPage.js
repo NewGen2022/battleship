@@ -82,7 +82,7 @@ class SecondPage {
 
         const activePlayerInput = document.querySelector('.active-player-input').id;
         let currentBoard = document.getElementById('left-input');
-
+        
         if (activePlayerInput === 'player2-input') {
             currentBoard.removeChild(currentBoard.querySelector('.buttons'));
             currentBoard = document.getElementById('right-input');
@@ -136,7 +136,6 @@ class SecondPage {
                         return true;
                     }
 
-
                     const notActivePlayerInput = document.getElementById(activePlayerInput);
                     notActivePlayerInput.classList.remove('active-player-input');
 
@@ -147,6 +146,8 @@ class SecondPage {
                 }
             } else if (activePlayerInput === 'player2-input') {
                 if (!this.rightBoardLogic.isEmpty()) {
+                    const rightInput = document.getElementById('right-input');
+                    rightInput.removeChild(rightInput.querySelector('.buttons'));
                     this.startGame();
                 }
             }
@@ -173,7 +174,6 @@ class SecondPage {
 
             this.displayGameBoard();
         })
-
 
         return clear;
     }
