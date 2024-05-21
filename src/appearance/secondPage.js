@@ -74,6 +74,16 @@ class SecondPage {
                 cell.classList.add('disable-board');
             });
         }
+
+        const activePlayerInput = document.querySelector('.active-player-input').id;
+        
+        if (activePlayerInput === 'player2-input') {
+            let leftBoard = document.getElementById('left-input');
+            const leftBoardCells = leftBoard.querySelectorAll('.board-cell');
+            leftBoardCells.forEach(cell => {
+                cell.classList.add('disable-board');
+            });
+        }
     }
 
     displayButtons () {
@@ -132,6 +142,8 @@ class SecondPage {
                     const player2Active = document.getElementById('player2-input');
                     
                     if (!player2Active) {
+                        const leftInput = document.getElementById('left-input');
+                        leftInput.removeChild(leftInput.querySelector('.buttons'));
                         this.startGame();
                         return true;
                     }
