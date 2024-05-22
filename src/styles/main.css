@@ -26,7 +26,7 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('../assets/battleship.png');
+    /* background-image: url('../assets/battleship.png'); */
     background-position: center;
     filter: blur(5px);
     z-index: -1;
@@ -267,7 +267,6 @@ button {
 .ship-hit {
     background-color: rgba(255, 0, 0, 0.482);
     border: 1px solid red;
-    content: 'X';
 }
 
 .missed-cell {
@@ -276,10 +275,14 @@ button {
 }
 
 .board-cell:hover {
-    background-color: #00ff40;
+    background-color: #ffffff9a;
 }
 
 .disable-board {
+    background-color: #7e7e7e;
+}
+
+.disable-all-board {
     background-color: #7e7e7e;
 }
 
@@ -328,6 +331,25 @@ button {
     justify-content: center;
     align-items: center;
     gap: 40px;
+}
+
+#left-show-btn, #right-show-btn {
+    color: black;
+    font-size: 20px;
+    font-weight: 800;
+    background-color: #ffffff;
+    border: 1px solid #ffffff;
+    border-radius: 5px;
+    padding: 7px 0;
+}
+#left-show-btn:hover, #right-show-btn:hover {
+    transform: scale(1.05);
+    background-color: #ecfdff;
+    border: 1px solid #ecfdff;
+    box-shadow: 0px 0px 5px #ecfdff;
+}
+#left-show-btn:active, #right-show-btn:active {
+    transform: scale(1);
 }
 
 
@@ -392,6 +414,10 @@ button {
 
     #game-container {
         flex-direction: column;
+    }
+
+    #right-show-btn {
+        margin-bottom: 40px;
     }
 }
 
