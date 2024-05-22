@@ -2,6 +2,7 @@ import leftArrow from '../assets/left-arrow.png';
 import { createBackOrNextButton } from './hideDisplayPages';
 import GameBoard from '../factories/Gameboard';
 import Ship from '../factories/Ship';
+import Game from './game';
 
 class SecondPage {
     constructor () {
@@ -23,9 +24,6 @@ class SecondPage {
         
         this.leftBoard.setAttribute('id', 'left-board');
         this.rightBoard.setAttribute('id', 'right-board');
-
-        console.log(this.leftBoardLogic);
-        console.log(this.rightBoardLogic);
 
         this.startMain.appendChild(this.inputs);
 
@@ -190,10 +188,6 @@ class SecondPage {
         return clear;
     }
 
-    startGame () {
-        console.log('start');
-    }
-
     displayLeftBoard() {
         this.leftBoard.innerHTML = ''; // Clear previous board display
         
@@ -267,6 +261,31 @@ class SecondPage {
         }
 
         return input;
+    }
+
+    startGame () {
+        this.leftBoard.parentNode.removeChild(this.leftBoard);
+        this.rightBoard.parentNode.removeChild(this.rightBoard);
+
+        let player1Name = document.getElementById('player1-input').value;
+        let player2Name = document.getElementById('player2-input');
+        let botName = document.getElementById('bot-input');
+
+        if (!player1Name) {
+            player1Name = 'Player 1';
+        } else {
+            player1Name = player1Name.value;
+        }
+
+        if (botName) {
+            player2Name = botName.value;
+        } else if (!player2Name) {
+            player2Name = 'Player 2';
+        } else {
+            player2Name = player2Name.value;
+        }
+
+        const game = new Game(this.leftBoardLogic, this.rightBoardLogic, player1Name, player2Name);
     }
 }
 
