@@ -264,8 +264,15 @@ button {
     background-color: #292929;
 }
 
+.ship-hit {
+    background-color: rgba(255, 0, 0, 0.482);
+    border: 1px solid red;
+    content: 'X';
+}
+
 .missed-cell {
-    background-color: #87ceeb;
+    background-color: #00eaff30;
+    border: 1px solid #00a6ff;
 }
 
 .board-cell:hover {
@@ -314,6 +321,13 @@ button {
 }
 .random:active, .done:active, .clear:active {
     transform: scale(1);
+}
+
+#game-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
 }
 
 
@@ -374,6 +388,10 @@ button {
     .board-cell {
         width: 7vw;
         height: 7vw;
+    }
+
+    #game-container {
+        flex-direction: column;
     }
 }
 
