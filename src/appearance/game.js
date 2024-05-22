@@ -36,7 +36,9 @@ class Game {
         startContainerHide.parentNode.removeChild(startContainerHide);
 
         this.displayPlayerName();
+
         this.displayLeftBoard();
+        this.createLeftHideShowBtn();
 
         let isBot = document.getElementById('player-vs-bot');
         if (!isBot) {
@@ -44,7 +46,9 @@ class Game {
         } else {
             isBot = true;
         }
+
         this.displayRightBoard(isBot);
+        this.createRightHideShowBtn();
     }
 
     displayPlayerName () {
@@ -66,6 +70,8 @@ class Game {
                     cellDiv.classList.add('ship-cell'); // Ship is present
                 }
 
+                cellDiv.classList.add('disable-all-board');
+
                 cellDiv.addEventListener('click', () => {
                     if (this.leftBoardLogic.receiveAttack(rowIndex, colIndex)) {
                         cellDiv.classList.remove('ship-cell');
@@ -75,6 +81,8 @@ class Game {
                     if (this.leftBoardLogic.missedShots[rowIndex][colIndex]) {
                         cellDiv.classList.add('missed-cell'); // Missed shot
                     }
+
+                    cellDiv.classList.remove('disable-all-board');
 
                     if (this.leftBoardLogic.isGameOver()) {
                         console.log('END');
@@ -109,6 +117,8 @@ class Game {
                     cellDiv.classList.add('ship-cell'); // Ship is present
                 }
 
+                cellDiv.classList.add('disable-all-board');
+
                 cellDiv.addEventListener('click', () => {
                     if (this.rightBoardLogic.receiveAttack(rowIndex, colIndex)) {
                         cellDiv.classList.remove('ship-cell');
@@ -118,6 +128,8 @@ class Game {
                     if (this.rightBoardLogic.missedShots[rowIndex][colIndex]) {
                         cellDiv.classList.add('missed-cell'); // Missed shot
                     }
+
+                    cellDiv.classList.remove('disable-all-board');
 
                     if (this.rightBoardLogic.isGameOver()) {
                         console.log('END');
@@ -131,6 +143,59 @@ class Game {
         });
 
         this.rightInput.appendChild(this.rightBoard);
+    }
+
+    createLeftHideShowBtn () {
+        const leftShowBtn = document.createElement('button');
+        leftShowBtn.setAttribute('id', 'left-show-btn');
+        leftShowBtn.innerText = 'Show';
+
+        // this.leftBoard.style.pointerEvents = 'none';
+
+        leftShowBtn.addEventListener('click', () => {
+            const cellDiv = this.leftBoard.querySelectorAll('.board-cell');
+            const isShowing = leftShowBtn.innerText === 'Show';
+
+            cellDiv.forEach(cell => {
+                if (isShowing) {
+                    cell.classList.remove('disable-all-board'); // shows cells
+                } else {
+                    if (!(cell.classList.contains('missed-cell') || cell.classList.contains('ship-hit'))) {
+                        cell.classList.add('disable-all-board'); // hides cells
+                    }
+                }
+            });
+
+            leftShowBtn.innerText = isShowing ? 'Hide' : 'Show';
+        })
+
+
+        this.leftInput.appendChild(leftShowBtn);
+    }
+
+    createRightHideShowBtn () {
+        const rightShowBtn = document.createElement('button');
+        rightShowBtn.setAttribute('id', 'right-show-btn');
+        rightShowBtn.innerText = 'Show';
+
+        rightShowBtn.addEventListener('click', () => {
+            const cellDiv = this.rightBoard.querySelectorAll('.board-cell');
+            const isShowing = rightShowBtn.innerText === 'Show';
+
+            cellDiv.forEach(cell => {
+                if (isShowing) {
+                    cell.classList.remove('disable-all-board'); // shows cells
+                } else {
+                    if (!(cell.classList.contains('missed-cell') || cell.classList.contains('ship-hit'))) {
+                        cell.classList.add('disable-all-board'); // hides cells
+                    }
+                }
+            });
+
+            rightShowBtn.innerText = isShowing ? 'Hide' : 'Show';
+        });
+
+        this.rightInput.appendChild(rightShowBtn);
     }
 }
 
