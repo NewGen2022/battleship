@@ -40,8 +40,6 @@ class Game {
         this.displayPlayerName();
 
         this.displayLeftBoard();
-        
-        
 
         let isBot = document.getElementById('player-vs-bot');
         if (!isBot) {
@@ -64,6 +62,13 @@ class Game {
 
     displayLeftBoard () {
         this.leftBoard.innerHTML = ''; // Clear previous board display
+
+        this.leftBoard.classList.add('active-move');
+        this.leftBoard.style.pointerEvents = 'none';
+
+        if (this.player2Name === 'Optimus Prime') {
+            this.leftBoard.style.pointerEvents = 'none';
+        }
         
         this.leftBoardLogic.board.forEach((row, rowIndex) => {
             const rowDiv = document.createElement('div');
@@ -81,12 +86,16 @@ class Game {
                     cellDiv.classList.add('disable-all-board');
                 }
 
-                cellDiv.addEventListener('click', () => {
+                cellDiv.addEventListener('click', (clickedCell) => {
+                    
+
                     if (this.leftBoardLogic.receiveAttack(rowIndex, colIndex)) {
                         cellDiv.classList.remove('ship-cell');
                         cellDiv.classList.add('ship-hit');
                         cellDiv.textContent = 'x';
                     }
+
+                    this.changeTurnToRightPlayer(clickedCell);
 
                     this.leftBoardLogic.missedShots.forEach((missedRow, missedRowIndex) => {
                         missedRow.forEach((missedCell, missedColIndex) => {
@@ -107,7 +116,7 @@ class Game {
                     cellDiv.classList.remove('disable-all-board');
 
                     if (this.leftBoardLogic.isGameOver()) {
-                        this.END();
+                        this.END(this.player2Name);
                     }
                 });
     
@@ -116,6 +125,10 @@ class Game {
     
             this.leftBoard.appendChild(rowDiv);
         });
+
+        // this.leftBoard.addEventListener('click', (clickedCell) => {
+        //     this.changeTurnToRightPlayer(clickedCell);
+        // });
 
         this.leftInput.appendChild(this.leftBoard);
     }
@@ -127,6 +140,8 @@ class Game {
             this.rightBoardLogic.placeShipRandomly();
         }
         
+        this.rightBoard.classList.add('not-active-move');
+
         this.rightBoardLogic.board.forEach((row, rowIndex) => {
             const rowDiv = document.createElement('div');
             rowDiv.classList.add('board-row');
@@ -141,12 +156,14 @@ class Game {
 
                 cellDiv.classList.add('disable-all-board');
 
-                cellDiv.addEventListener('click', () => {
+                cellDiv.addEventListener('click', (cellClicked) => {
                     if (this.rightBoardLogic.receiveAttack(rowIndex, colIndex)) {
                         cellDiv.classList.remove('ship-cell');
                         cellDiv.classList.add('ship-hit');
                         cellDiv.textContent = 'x';
                     }
+
+                    this.changeTurnToLeftPlayer(cellClicked);
 
                     this.rightBoardLogic.missedShots.forEach((missedRow, missedRowIndex) => {
                         missedRow.forEach((missedCell, missedColIndex) => {
@@ -167,7 +184,7 @@ class Game {
                     cellDiv.classList.remove('disable-all-board');
 
                     if (this.rightBoardLogic.isGameOver()) {
-                        this.END();
+                        this.END(this.player1Name);
                     }
                 });
     
@@ -176,6 +193,10 @@ class Game {
     
             this.rightBoard.appendChild(rowDiv);
         });
+
+        // this.rightBoard.addEventListener('click', (cellClicked) => {
+        //     this.changeTurnToLeftPlayer(cellClicked);
+        // });
 
         this.rightInput.appendChild(this.rightBoard);
     }
@@ -233,7 +254,42 @@ class Game {
         this.rightInput.appendChild(rightShowBtn);
     }
 
-    END () {
+    changeTurnToRightPlayer (clickedCell) {
+        if (clickedCell.target.classList.contains('ship-hit') ||
+            clickedCell.target.classList.contains('missed-cell')) {
+            return; // Do not change turn if cell was already clicked
+        }
+
+        this.rightBoard.style.pointerEvents = 'auto';
+        this.leftBoard.style.pointerEvents = 'none';
+
+        this.rightBoard.classList.remove('active-move');
+        this.rightBoard.classList.add('not-active-move');
+        
+        this.leftBoard.classList.remove('not-active-move');
+        this.leftBoard.classList.add('active-move');
+        
+    }
+
+    changeTurnToLeftPlayer (clickedCell) {
+        if (clickedCell.target.classList.contains('ship-hit') ||
+        clickedCell.target.classList.contains('missed-cell')) {
+            return; // Do not change turn if cell was already clicked
+        }
+
+        if (this.player2Name !== 'Optimus Prime') {
+            this.leftBoard.style.pointerEvents = 'auto';
+        }
+        this.rightBoard.style.pointerEvents = 'none';
+
+        this.leftBoard.classList.remove('active-move');
+        this.leftBoard.classList.add('not-active-move');
+        
+        this.rightBoard.classList.remove('not-active-move');
+        this.rightBoard.classList.add('active-move');
+    }
+
+    END (winnerName) {
         const endWindow = document.createElement('dialog');
         const winner = document.createElement('div');
         const restartBtn = document.createElement('button');
@@ -242,7 +298,7 @@ class Game {
         winner.setAttribute('id', 'winner');
         restartBtn.setAttribute('id', 'restart');
 
-        winner.textContent = 'Player Name wins';
+        winner.textContent = `Player "${winnerName}" wins`;
         restartBtn.textContent = 'Restart';
 
         restartBtn.addEventListener('click', () => {
