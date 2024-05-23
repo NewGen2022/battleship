@@ -1,7 +1,6 @@
 import leftArrow from '../assets/left-arrow.png';
 import { createBackOrNextButton } from './hideDisplayPages';
 import GameBoard from '../factories/Gameboard';
-import Ship from '../factories/Ship';
 import Game from './game';
 
 class SecondPage {
@@ -266,27 +265,22 @@ class SecondPage {
     startGame () {
         this.leftBoard.parentNode.removeChild(this.leftBoard);
         this.rightBoard.parentNode.removeChild(this.rightBoard);
-
-        let player1Name = document.getElementById('player1-input').value;
-        let player2Name = document.getElementById('player2-input');
-        let botName = document.getElementById('bot-input');
-
-        if (!player1Name) {
-            player1Name = 'Player 1';
+    
+        let player1Input = document.getElementById('player1-input').value;
+        let botInput = document.getElementById('bot-input');
+    
+        let player1Name = player1Input ? player1Input : 'Player 1';
+        let player2Name;
+    
+        if (botInput) {
+            player2Name = botInput.value;
         } else {
-            player1Name = player1Name.value;
+            let player2Input = document.getElementById('player2-input').value;
+            player2Name = player2Input ? player2Input : 'Player 2';
         }
-
-        if (botName) {
-            player2Name = botName.value;
-        } else if (!player2Name) {
-            player2Name = 'Player 2';
-        } else {
-            player2Name = player2Name.value;
-        }
-
-        const game = new Game(this.leftBoardLogic, this.rightBoardLogic, player1Name, player2Name);
-    }
+        
+        new Game(this.leftBoardLogic, this.rightBoardLogic, player1Name, player2Name);
+    }    
 }
 
 export default SecondPage;
