@@ -1,3 +1,5 @@
+import StartScreen from "./startScreen";
+
 class Game {
     constructor (leftBoardLogic, rightBoardLogic, player1Name, player2Name) {
         this.leftBoardLogic = leftBoardLogic;
@@ -38,7 +40,8 @@ class Game {
         this.displayPlayerName();
 
         this.displayLeftBoard();
-        this.createLeftHideShowBtn();
+        
+        
 
         let isBot = document.getElementById('player-vs-bot');
         if (!isBot) {
@@ -48,7 +51,11 @@ class Game {
         }
 
         this.displayRightBoard(isBot);
-        this.createRightHideShowBtn();
+
+        if (this.player2Name !== 'Optimus Prime') {
+            this.createLeftHideShowBtn();
+            this.createRightHideShowBtn();
+        }
     }
 
     displayPlayerName () {
@@ -70,13 +77,28 @@ class Game {
                     cellDiv.classList.add('ship-cell'); // Ship is present
                 }
 
-                cellDiv.classList.add('disable-all-board');
+                if (this.player2Name !== 'Optimus Prime') {
+                    cellDiv.classList.add('disable-all-board');
+                }
 
                 cellDiv.addEventListener('click', () => {
                     if (this.leftBoardLogic.receiveAttack(rowIndex, colIndex)) {
                         cellDiv.classList.remove('ship-cell');
                         cellDiv.classList.add('ship-hit');
+                        cellDiv.textContent = 'x';
                     }
+
+                    this.leftBoardLogic.missedShots.forEach((missedRow, missedRowIndex) => {
+                        missedRow.forEach((missedCell, missedColIndex) => {
+                            if (missedCell) {
+                                const missedCellDiv = this.leftBoard.querySelector(`.board-row:nth-child(${missedRowIndex + 1}) .board-cell:nth-child(${missedColIndex + 1})`);
+                                if (missedCellDiv) {
+                                    missedCellDiv.classList.remove('disable-all-board');
+                                    missedCellDiv.classList.add('missed-cell');
+                                }
+                            }
+                        });
+                    });
 
                     if (this.leftBoardLogic.missedShots[rowIndex][colIndex]) {
                         cellDiv.classList.add('missed-cell'); // Missed shot
@@ -85,7 +107,7 @@ class Game {
                     cellDiv.classList.remove('disable-all-board');
 
                     if (this.leftBoardLogic.isGameOver()) {
-                        console.log('END');
+                        this.END();
                     }
                 });
     
@@ -123,7 +145,20 @@ class Game {
                     if (this.rightBoardLogic.receiveAttack(rowIndex, colIndex)) {
                         cellDiv.classList.remove('ship-cell');
                         cellDiv.classList.add('ship-hit');
+                        cellDiv.textContent = 'x';
                     }
+
+                    this.rightBoardLogic.missedShots.forEach((missedRow, missedRowIndex) => {
+                        missedRow.forEach((missedCell, missedColIndex) => {
+                            if (missedCell) {
+                                const missedCellDiv = this.rightBoard.querySelector(`.board-row:nth-child(${missedRowIndex + 1}) .board-cell:nth-child(${missedColIndex + 1})`);
+                                if (missedCellDiv) {
+                                    missedCellDiv.classList.remove('disable-all-board');
+                                    missedCellDiv.classList.add('missed-cell');
+                                }
+                            }
+                        });
+                    });
 
                     if (this.rightBoardLogic.missedShots[rowIndex][colIndex]) {
                         cellDiv.classList.add('missed-cell'); // Missed shot
@@ -132,7 +167,7 @@ class Game {
                     cellDiv.classList.remove('disable-all-board');
 
                     if (this.rightBoardLogic.isGameOver()) {
-                        console.log('END');
+                        this.END();
                     }
                 });
     
@@ -196,6 +231,33 @@ class Game {
         });
 
         this.rightInput.appendChild(rightShowBtn);
+    }
+
+    END () {
+        const endWindow = document.createElement('dialog');
+        const winner = document.createElement('div');
+        const restartBtn = document.createElement('button');
+
+        endWindow.setAttribute('id', 'modal-window');
+        winner.setAttribute('id', 'winner');
+        restartBtn.setAttribute('id', 'restart');
+
+        winner.textContent = 'Player Name wins';
+        restartBtn.textContent = 'Restart';
+
+        restartBtn.addEventListener('click', () => {
+            endWindow.close();
+            const body = document.querySelector('body');
+            body.innerHTML = '';
+            new StartScreen();
+        })
+
+        endWindow.appendChild(winner);
+        endWindow.appendChild(restartBtn);
+
+        this.gameDiv.appendChild(endWindow);
+        
+        endWindow.showModal();
     }
 }
 
