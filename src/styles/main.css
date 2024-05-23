@@ -9,7 +9,6 @@ body {
     padding: 0;
     margin: 0;
     background-color: #001d5d;
-    height: 100%;
     box-sizing: border-box;
 
     /* disable text selection */
@@ -21,7 +20,7 @@ body {
 
 body::before {
     content: "";
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -205,6 +204,7 @@ button {
     padding: 7px 15px;
     outline: none;
     background-color: #f2f2f2;
+    width: 85%;
 }
 #inputs input::placeholder {
     font-weight: 600;
@@ -213,11 +213,15 @@ button {
 #left-input {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 #right-input {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 #player1-input:hover, #player2-input:hover {
@@ -343,7 +347,7 @@ button {
     background-color: #ffffff;
     border: 1px solid #ffffff;
     border-radius: 5px;
-    padding: 7px 0;
+    padding: 7px 20px;
 }
 #left-show-btn:hover, #right-show-btn:hover {
     transform: scale(1.05);
@@ -355,12 +359,12 @@ button {
     transform: scale(1);
 }
 
-
 #modal-window {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    text-align: center;
     background-color: #292929;
     gap: 40px;
     font-size: 46px;
@@ -376,6 +380,7 @@ button {
     padding: 7px 0;
     width: 50%;
     background-color: #ffff00;
+    outline: none;
 }
 #restart:hover {
     box-shadow: 0 0 10px #ffff00;
@@ -385,14 +390,19 @@ button {
     transform: scale(1);
 }
 
+.active-move {
+    border: 5px solid rgb(0, 224, 0);
+    box-shadow: 0 0 10px rgb(0, 255, 0);
+}
+
+.not-active-move {
+    border: 5px solid rgb(224, 0, 0);
+    box-shadow: 0 0 10px rgb(255, 0, 0);
+}
+
 /* STYLES OF START SCREEN SECOND PAGE */
 
 @media screen and (max-width: 760px){
-    body::before {
-        background-size: contain;
-        background-position: top;
-    }
-
     #player-vs-player, #player-vs-bot {
         font-size: clamp(32px, 6vw, 40px);
     }
@@ -427,6 +437,10 @@ button {
         padding: 0 15px;
     }
 
+    #left-input input, #right-input input{
+        width: 60%;
+    }
+
     #next img {
         width: clamp(60px, 9vw, 70px);
     }
@@ -458,7 +472,6 @@ button {
         width: 4vw;
         height: 4vw;
     }
-
 }
 
 @media screen and (max-width: 520px){
