@@ -156,10 +156,57 @@ class GameBoard {
                 }
             }
             ship.hit(hitIndex);
+
+            if (ship.isSunk()) {
+                this.#markSurroundingCells(row, column, ship);
+            }
             return true;
         } else {
             this.missedShots[row][column] = true;
             return false;
+        }
+    }
+
+    #markSurroundingCells(row, column, ship) {
+        const directions = [
+            [-1, -1], [-1, 0], [-1, 1],
+            [0, -1],           [0, 1],
+            [1, -1], [1, 0], [1, 1]
+        ];
+
+        let startRow = row, startColumn = column;
+
+        // Find the start of the ship
+        while (startColumn > 0 && this.board[startRow][startColumn - 1] === ship) {
+            startColumn--;
+        }
+        while (startRow > 0 && this.board[startRow - 1][startColumn] === ship) {
+            startRow--;
+        }
+
+        // Mark surrounding cells for horizontal ship
+        if (this.board[startRow][startColumn + 1] === ship) {
+            for (let i = 0; i < ship.length; i++) {
+                for (const [dx, dy] of directions) {
+                    const newRow = startRow + dx;
+                    const newCol = startColumn + i + dy;
+                    if (this.#isMoveValid(newRow, newCol) && !this.board[newRow][newCol]) {
+                        this.missedShots[newRow][newCol] = true;
+                    }
+                }
+            }
+        }
+        // Mark surrounding cells for vertical ship
+        else {
+            for (let i = 0; i < ship.length; i++) {
+                for (const [dx, dy] of directions) {
+                    const newRow = startRow + i + dx;
+                    const newCol = startColumn + dy;
+                    if (this.#isMoveValid(newRow, newCol) && !this.board[newRow][newCol]) {
+                        this.missedShots[newRow][newCol] = true;
+                    }
+                }
+            }
         }
     }
 
@@ -176,6 +223,7 @@ class GameBoard {
         return true;
     }
 
+    // checks if board is empty
     isEmpty () {
         for (let i = 0; i < this.#SIZE; i++) {
             for (let j = 0; j < this.#SIZE; j++) {
