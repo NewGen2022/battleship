@@ -168,7 +168,7 @@ class Game {
                         cellDiv.textContent = 'x';
                     }
 
-                    this.changeTurnToLeftPlayer(cellClicked);
+                    this.changeTurnToLeftPlayer(cellClicked, rowIndex, colIndex);
 
                     this.rightBoardLogic.missedShots.forEach((missedRow, missedRowIndex) => {
                         missedRow.forEach((missedCell, missedColIndex) => {
@@ -199,10 +199,6 @@ class Game {
             this.rightBoard.appendChild(rowDiv);
         });
 
-        // this.rightBoard.addEventListener('click', (cellClicked) => {
-        //     this.changeTurnToLeftPlayer(cellClicked);
-        // });
-
         this.rightInput.appendChild(this.rightBoard);
     }
 
@@ -210,8 +206,6 @@ class Game {
         const leftShowBtn = document.createElement('button');
         leftShowBtn.setAttribute('id', 'left-show-btn');
         leftShowBtn.innerText = 'Show';
-
-        // this.leftBoard.style.pointerEvents = 'none';
 
         leftShowBtn.addEventListener('click', () => {
             const cellDiv = this.leftBoard.querySelectorAll('.board-cell');
@@ -275,22 +269,112 @@ class Game {
         this.leftBoard.classList.add('active-move');
     }
 
-    changeTurnToLeftPlayer (clickedCell) {
+    changeTurnToLeftPlayer(clickedCell, rowIndex, colIndex) {
         if (clickedCell.target.classList.contains('ship-hit') ||
-        clickedCell.target.classList.contains('missed-cell')) {
+            clickedCell.target.classList.contains('missed-cell')) {
             return; // Do not change turn if cell was already clicked
         }
-
+    
         if (this.player2.name !== 'Optimus Prime') {
             this.leftBoard.style.pointerEvents = 'auto';
         }
         this.rightBoard.style.pointerEvents = 'none';
-
+    
         this.leftBoard.classList.remove('active-move');
         this.leftBoard.classList.add('not-active-move');
-        
+    
         this.rightBoard.classList.remove('not-active-move');
         this.rightBoard.classList.add('active-move');
+    
+        const continueBotAttack = () => {
+            if (this.player2.name === 'Optimus Prime') {
+                const attackResult = this.player2.randomAttack(this.leftBoardLogic);
+                if (attackResult) {
+                    const lastAttack = this.player2.attackedPositions[this.player2.attackedPositions.length - 1];
+                    const [hitRow, hitCol] = lastAttack;
+                    const clickedCell = this.leftBoard.querySelector(`.board-row:nth-child(${hitRow + 1}) .board-cell:nth-child(${hitCol + 1})`);
+                    clickedCell.classList.remove('ship-cell');
+                    clickedCell.classList.add('ship-hit');
+                    clickedCell.textContent = 'x';
+        
+                    // If the last attack was a hit, continue attacking the adjacent cells
+                    if (this.leftBoardLogic.board[hitRow][hitCol]) {
+                        this.continueBotAttackAdjacent(hitRow, hitCol);
+                    }
+                    setTimeout(continueBotAttack, 1000); // Continue attacking after hitting a ship
+                } else {
+                    // Bot missed, stop attacking
+                    const lastAttack = this.player2.attackedPositions[this.player2.attackedPositions.length - 1];
+                    if (lastAttack) {
+                        const [missedRow, missedCol] = lastAttack;
+                        const clickedCell = this.leftBoard.querySelector(`.board-row:nth-child(${missedRow + 1}) .board-cell:nth-child(${missedCol + 1})`);
+                        clickedCell.click(); // Trigger the click event to update the display
+                    }
+                }
+            }
+        };
+        
+        if (this.rightBoard.classList.contains('active-move')) {
+            setTimeout(continueBotAttack, 1000); // Do not continue attacking if the rightBoard is not active
+        } // Start bot attack
+    }
+
+    // Function to continue attacking adjacent cells after hitting a ship
+    continueBotAttackAdjacent(row, col) {
+        const adjacentOffsets = [[-1, 0], [1, 0], [0, -1], [0, 1]]; // Up, Down, Left, Right
+    
+        // Iterate through each adjacent cell
+        adjacentOffsets.forEach(offset => {
+            const newRow = row + offset[0];
+            const newCol = col + offset[1];
+    
+            // Check if the move is valid and hasn't been attacked yet
+            if (this.leftBoardLogic.isMoveValid(newRow, newCol)) {
+                const cell = this.leftBoard.querySelector(`.board-row:nth-child(${newRow + 1}) .board-cell:nth-child(${newCol + 1})`);
+                if (cell) {
+                    cell.click();
+
+                    setTimeout(() => {
+                        if (this.leftBoardLogic.board[newRow][newCol] && this.rightBoard.classList.contains('active-move')) {
+                            this.continueAttackingShip(newRow, newCol);
+                        }
+                    }, 1000);
+                }
+            }
+        });
+    }
+
+    continueAttackingShip(startRow, startCol) {
+        const adjacentOffsets = [[-1, 0], [1, 0], [0, -1], [0, 1]]; // Up, Down, Left, Right
+        const visited = new Set(); // Keep track of visited cells
+    
+        // Initialize queue with initial cell
+        const queue = [[startRow, startCol]];
+    
+        while (queue.length > 0) {
+            const [r, c] = queue.shift(); // Dequeue the first cell from the queue
+    
+            // Iterate through adjacent cells
+            adjacentOffsets.forEach(offset => {
+                const newRow = r + offset[0];
+                const newCol = c + offset[1];
+    
+                // Check if the move is valid and hasn't been visited yet
+                if (this.leftBoardLogic.isMoveValid(newRow, newCol) && !visited.has(`${newRow},${newCol}`)) {
+                    const cell = this.leftBoard.querySelector(`.board-row:nth-child(${newRow + 1}) .board-cell:nth-child(${newCol + 1})`);
+                    if (cell) {
+                        // Attack the cell
+                        cell.click();
+    
+                        // If the attacked cell contains a ship, add to visited set and queue
+                        if (this.leftBoardLogic.board[newRow][newCol]) {
+                            visited.add(`${newRow},${newCol}`);
+                            queue.push([newRow, newCol]);
+                        }
+                    }
+                }
+            });
+        }
     }
 
     END (winnerName) {
