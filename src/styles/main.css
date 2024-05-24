@@ -338,6 +338,7 @@ button {
     justify-content: center;
     align-items: center;
     gap: 40px;
+    margin-top: 15vh;
 }
 
 #left-show-btn, #right-show-btn {
@@ -400,6 +401,11 @@ button {
     box-shadow: 0 0 10px rgb(255, 0, 0);
 }
 
+.player-name {
+    font-size: 36px;
+    font-weight: 700;
+}
+
 /* STYLES OF START SCREEN SECOND PAGE */
 
 @media screen and (max-width: 760px){
@@ -460,6 +466,7 @@ button {
 
     #game-container {
         flex-direction: column;
+        margin-top: 40px;
     }
 
     #right-show-btn {
@@ -467,7 +474,7 @@ button {
     }
 }
 
-@media screen and (max-width: 920px){
+@media screen and (max-width: 1200px){
     .board-cell {
         width: 4vw;
         height: 4vw;
