@@ -65,7 +65,7 @@ class GameBoard {
 
     // checks if player's move is valid
     #isPlacementValid (ship, row, column, isHorizontal) {
-        this.#isMoveValid(row, column);
+        this.isMoveValid(row, column);
 
         // ship doesn't fit in gameBoard
         if (isHorizontal) {
@@ -121,7 +121,7 @@ class GameBoard {
     }
 
     // checks if move is inside the board
-    #isMoveValid (row, column) {
+    isMoveValid (row, column) {
         if (row < 0 || row >= this.#SIZE || column < 0 || column >= this.#SIZE) {
             return false
         }
@@ -134,7 +134,7 @@ class GameBoard {
     // function to the correct ship, or records the 
     // coordinates of the missed shot.
     receiveAttack (row, column) {
-        this.#isMoveValid(row, column);
+        this.isMoveValid(row, column);
 
         const ship = this.board[row][column];
         if (ship) {
@@ -190,7 +190,7 @@ class GameBoard {
                 for (const [dx, dy] of directions) {
                     const newRow = startRow + dx;
                     const newCol = startColumn + i + dy;
-                    if (this.#isMoveValid(newRow, newCol) && !this.board[newRow][newCol]) {
+                    if (this.isMoveValid(newRow, newCol) && !this.board[newRow][newCol]) {
                         this.missedShots[newRow][newCol] = true;
                     }
                 }
@@ -202,7 +202,7 @@ class GameBoard {
                 for (const [dx, dy] of directions) {
                     const newRow = startRow + i + dx;
                     const newCol = startColumn + dy;
-                    if (this.#isMoveValid(newRow, newCol) && !this.board[newRow][newCol]) {
+                    if (this.isMoveValid(newRow, newCol) && !this.board[newRow][newCol]) {
                         this.missedShots[newRow][newCol] = true;
                     }
                 }
