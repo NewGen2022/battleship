@@ -1,7 +1,9 @@
 import leftArrow from '../assets/left-arrow.png';
 import { createBackOrNextButton } from './hideDisplayPages';
 import GameBoard from '../factories/Gameboard';
+import Player from '../factories/Player';
 import Game from './game';
+
 
 class SecondPage {
     constructor () {
@@ -12,6 +14,9 @@ class SecondPage {
 
         this.leftBoardLogic = new GameBoard();
         this.rightBoardLogic = new GameBoard();
+
+        this.player1 = new Player();
+        this.player2 = new Player();
 
         this.inputs = document.createElement('div');
         this.leftInput = document.createElement('div');
@@ -278,8 +283,11 @@ class SecondPage {
             let player2Input = document.getElementById('player2-input').value;
             player2Name = player2Input ? player2Input : 'Player 2';
         }
+
+        this.player1.name = player1Name;
+        this.player2.name = player2Name;
         
-        new Game(this.leftBoardLogic, this.rightBoardLogic, player1Name, player2Name);
+        new Game(this.leftBoardLogic, this.rightBoardLogic, this.player1, this.player2);
     }    
 }
 
