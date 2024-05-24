@@ -1,11 +1,11 @@
 import StartScreen from "./startScreen";
 
 class Game {
-    constructor (leftBoardLogic, rightBoardLogic, player1Name, player2Name) {
+    constructor (leftBoardLogic, rightBoardLogic, player1, player2) {
         this.leftBoardLogic = leftBoardLogic;
         this.rightBoardLogic = rightBoardLogic;
-        this.player1Name = player1Name;
-        this.player2Name = player2Name;
+        this.player1 = player1;
+        this.player2 = player2;
 
         const body = document.querySelector('body');
 
@@ -38,7 +38,6 @@ class Game {
         startContainerHide.parentNode.removeChild(startContainerHide);
 
         this.displayPlayerName();
-
         this.displayLeftBoard();
 
         let isBot = document.getElementById('player-vs-bot');
@@ -50,14 +49,24 @@ class Game {
 
         this.displayRightBoard(isBot);
 
-        if (this.player2Name !== 'Optimus Prime') {
+        if (this.player2.name !== 'Optimus Prime') {
             this.createLeftHideShowBtn();
             this.createRightHideShowBtn();
         }
     }
 
     displayPlayerName () {
-        console.log('name');
+        const leftPlayerName = document.createElement('div'); 
+        const rightPlayerName = document.createElement('div'); 
+
+        leftPlayerName.classList.add('player-name');
+        rightPlayerName.classList.add('player-name');
+
+        leftPlayerName.textContent = this.player1.name;
+        rightPlayerName.textContent = this.player2.name;
+
+        this.leftInput.appendChild(leftPlayerName);
+        this.rightInput.appendChild(rightPlayerName);
     }
 
     displayLeftBoard () {
@@ -66,7 +75,7 @@ class Game {
         this.leftBoard.classList.add('active-move');
         this.leftBoard.style.pointerEvents = 'none';
 
-        if (this.player2Name === 'Optimus Prime') {
+        if (this.player2.name === 'Optimus Prime') {
             this.leftBoard.style.pointerEvents = 'none';
         }
         
@@ -82,7 +91,7 @@ class Game {
                     cellDiv.classList.add('ship-cell'); // Ship is present
                 }
 
-                if (this.player2Name !== 'Optimus Prime') {
+                if (this.player2.name !== 'Optimus Prime') {
                     cellDiv.classList.add('disable-all-board');
                 }
 
@@ -116,7 +125,7 @@ class Game {
                     cellDiv.classList.remove('disable-all-board');
 
                     if (this.leftBoardLogic.isGameOver()) {
-                        this.END(this.player2Name);
+                        this.END(this.player2.name);
                     }
                 });
     
@@ -125,10 +134,6 @@ class Game {
     
             this.leftBoard.appendChild(rowDiv);
         });
-
-        // this.leftBoard.addEventListener('click', (clickedCell) => {
-        //     this.changeTurnToRightPlayer(clickedCell);
-        // });
 
         this.leftInput.appendChild(this.leftBoard);
     }
@@ -184,7 +189,7 @@ class Game {
                     cellDiv.classList.remove('disable-all-board');
 
                     if (this.rightBoardLogic.isGameOver()) {
-                        this.END(this.player1Name);
+                        this.END(this.player1.name);
                     }
                 });
     
@@ -268,7 +273,6 @@ class Game {
         
         this.leftBoard.classList.remove('not-active-move');
         this.leftBoard.classList.add('active-move');
-        
     }
 
     changeTurnToLeftPlayer (clickedCell) {
@@ -277,7 +281,7 @@ class Game {
             return; // Do not change turn if cell was already clicked
         }
 
-        if (this.player2Name !== 'Optimus Prime') {
+        if (this.player2.name !== 'Optimus Prime') {
             this.leftBoard.style.pointerEvents = 'auto';
         }
         this.rightBoard.style.pointerEvents = 'none';
