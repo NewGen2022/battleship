@@ -20,24 +20,15 @@ class Player {
         do {
             row = Math.floor(Math.random() * 10); 
             column = Math.floor(Math.random() * 10); 
-        } while (this.isAttacked(row, column));
+        } while (this.isAttacked(board, row, column));
 
         this.attackedPositions.push([row, column]);
         return board.receiveAttack(row, column);
     }
 
     // checks is the move have already be done
-    isAttacked (row, column) {
-        for (let i = 0; i < this.attackedPositions.length; i++) {
-            if (
-                this.attackedPositions[i][0] === row && 
-                this.attackedPositions[i][1] === column
-            ) {
-                return true;
-            }
-        }
-
-        return false;
+    isAttacked (board, row, column) {
+        return board.missedShots[row][column] || board.board[row][column] === 'x';
     }
 }
 
