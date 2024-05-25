@@ -1,4 +1,6 @@
-# BATTLESHIP game
+<h1 align="center">BATTLESHIP</h1>
+
+![battleship](https://github.com/NewGen2022/battleship/blob/main/src/assets/battleship_bg.png)
 
 View app online: [battleship](https://newgen2022.github.io/battleship/)
 
@@ -17,10 +19,8 @@ View app online: [battleship](https://newgen2022.github.io/battleship/)
 - restart the game after someone wins 
 
 # App preview
-![photo_1]()
-![photo_2]()
-![photo_3]()
-![photo_4]()
-![photo_5]()
+![photo_1](https://github.com/NewGen2022/battleship/blob/main/app_preview/photo_1.jpg)
+![photo_2](https://github.com/NewGen2022/battleship/blob/main/app_preview/photo_2.jpg)
+![photo_3](https://github.com/NewGen2022/battleship/blob/main/app_preview/photo_3.jpg)
 
 **This site was built using [GitHub Pages](https://pages.github.com/).**
